@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     # AI / Chunking settings
     CHUNK_SIZE: int = 500       # tokens per chunk
     CHUNK_OVERLAP: int = 50
+    MIN_CHUNK_LENGTH: int = 50
 
     # Validation limits
     MIN_QUESTIONS: int = 5

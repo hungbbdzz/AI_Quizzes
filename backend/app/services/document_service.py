@@ -3,7 +3,6 @@ Document Service — upload, trích xuất text, chunking, embedding.
 Hỗ trợ PDF (pdfplumber), DOCX (python-docx), TXT.
 """
 
-import io
 import uuid
 from fastapi import UploadFile, HTTPException, status
 from supabase import Client
@@ -11,8 +10,8 @@ from supabase import Client
 from app.config import settings
 from app.db.supabase_client import get_supabase_admin_client
 from app.models.document import DocumentResponse, DocumentListResponse, SummarizeResponse
+from app.services import document_pipeline
 from app.services import ai_service
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 
 # ---------------------------------------------------------------------------
@@ -30,87 +29,11 @@ async def extract_text_from_file(file: UploadFile) -> str:
     content = await file.read()
     await file.seek(0)
 
-    file_name = file.filename or ""
-    ext = file_name.rsplit(".", 1)[-1].lower() if "." in file_name else ""
-
-    # Xác định loại file từ content_type hoặc extension
-    content_type = file.content_type or ""
-
-    if "pdf" in content_type or ext == "pdf":
-        return _extract_pdf(content, file_name)
-    elif "docx" in content_type or "word" in content_type or ext == "docx":
-        return _extract_docx(content, file_name)
-    elif "text" in content_type or ext == "txt":
-        return _extract_txt(content, file_name)
-    else:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Định dạng file không được hỗ trợ: {file_name}. Chỉ chấp nhận PDF, DOCX, TXT.",
-        )
-
-
-def _extract_pdf(content: bytes, file_name: str) -> str:
-    """Trích xuất text từ PDF dùng pdfplumber."""
-    try:
-        import pdfplumber
-        with pdfplumber.open(io.BytesIO(content)) as pdf:
-            pages_text = []
-            for page in pdf.pages:
-                text = page.extract_text()
-                if text:
-                    pages_text.append(text)
-            result = "\n\n".join(pages_text).strip()
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=f"Không thể đọc file PDF '{file_name}': {e}",
-        )
-
-    if not result:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=f"File PDF '{file_name}' không có nội dung text có thể trích xuất.",
-        )
-    return result
-
-
-def _extract_docx(content: bytes, file_name: str) -> str:
-    """Trích xuất text từ DOCX dùng python-docx."""
-    try:
-        from docx import Document
-        doc = Document(io.BytesIO(content))
-        paragraphs = [p.text for p in doc.paragraphs if p.text.strip()]
-        result = "\n\n".join(paragraphs).strip()
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=f"Không thể đọc file DOCX '{file_name}': {e}",
-        )
-
-    if not result:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=f"File DOCX '{file_name}' không có nội dung.",
-        )
-    return result
-
-
-def _extract_txt(content: bytes, file_name: str) -> str:
-    """Đọc file TXT với encoding UTF-8."""
-    try:
-        result = content.decode("utf-8", errors="replace").strip()
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=f"Không thể đọc file TXT '{file_name}': {e}",
-        )
-
-    if not result:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=f"File '{file_name}' rỗng.",
-        )
-    return result
+    return document_pipeline.extract_text_from_upload(
+        file_name=file.filename or "",
+        content_type=file.content_type or "",
+        content=content,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -122,12 +45,11 @@ def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50) -> list[str]
     Chia text thành các đoạn ~500 ký tự với overlap 50 ký tự.
     Dùng LangChain RecursiveCharacterTextSplitter.
     """
-    splitter = RecursiveCharacterTextSplitter(
+    return document_pipeline.chunk_text_sentence_aware(
+        text,
         chunk_size=chunk_size,
         chunk_overlap=overlap,
-        separators=["\n\n", "\n", ".", " ", ""],
     )
-    return splitter.split_text(text)
 
 
 # ---------------------------------------------------------------------------
@@ -203,17 +125,24 @@ async def process_upload(file: UploadFile, user_id: str) -> dict:
 
     # --- Bước 5: Chunk + Embed + Lưu document_chunks ---
     try:
-        chunks = chunk_text(raw_text, settings.CHUNK_SIZE, settings.CHUNK_OVERLAP)
+        cleaned_chunks = document_pipeline.build_clean_chunks(
+            raw_text=raw_text,
+            chunk_size=settings.CHUNK_SIZE,
+            chunk_overlap=settings.CHUNK_OVERLAP,
+            min_chunk_length=settings.MIN_CHUNK_LENGTH,
+        )
+
+        chunks = [row["chunk_text"] for row in cleaned_chunks]
         embeddings = await ai_service.create_embeddings_batch(chunks)
 
         chunk_records = [
             {
                 "document_id": document_id,
-                "chunk_text": chunk,
+                "chunk_text": row["chunk_text"],
                 "embedding": emb,
-                "chunk_index": i,
+                "chunk_index": row["chunk_index"],
             }
-            for i, (chunk, emb) in enumerate(zip(chunks, embeddings))
+            for row, emb in zip(cleaned_chunks, embeddings)
         ]
 
         if chunk_records:
