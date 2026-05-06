@@ -1,0 +1,2 @@
+This is a sample English text for pipeline tests.
+Short sentences are easier to chunk.
