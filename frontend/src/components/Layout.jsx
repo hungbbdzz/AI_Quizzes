@@ -1,5 +1,4 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, FileText, LogOut, BrainCircuit, BookOpen } from 'lucide-react';
 import useStore from '../store';
 
 export default function Layout() {
@@ -14,79 +13,97 @@ export default function Layout() {
   const initials = user?.email ? user.email[0].toUpperCase() : 'U';
 
   return (
-    <div className="layout">
-      {/* Sidebar */}
-      <aside className="sidebar">
-        {/* Logo */}
-        <div className="sidebar-logo">
-          <div className="sidebar-logo-icon">
-            <BrainCircuit size={20} color="#fff" />
+    <div className="min-h-screen bg-background text-on-background flex flex-col">
+      {/* Top App Bar (Mobile & Desktop Header) */}
+      <header className="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest shadow-md shadow-secondary/5 flex justify-between items-center h-16 px-md md:px-xl">
+        <div className="flex items-center gap-md">
+          {/* Mobile Profile Avatar */}
+          <div className="md:hidden w-10 h-10 rounded-full overflow-hidden bg-surface-container border border-outline-variant/20 flex-shrink-0 cursor-pointer active:scale-95 duration-200 flex items-center justify-center font-bold text-secondary">
+            {initials}
           </div>
-          <span className="sidebar-logo-text">AI Quizzes</span>
+          <h1 className="font-h3 text-h3 font-bold text-secondary tracking-tight">QuizMaster</h1>
+          
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-sm ml-lg">
+             <NavLink 
+                to="/" 
+                end
+                className={({ isActive }) => 
+                  `font-label-caps text-label-caps px-sm py-xs rounded-full transition-colors ${isActive ? 'bg-secondary-container/10 text-secondary' : 'text-on-surface-variant hover:text-secondary'}`
+                }
+              >
+                Home
+              </NavLink>
+              <NavLink 
+                to="/explore" 
+                className={({ isActive }) => 
+                  `font-label-caps text-label-caps px-sm py-xs rounded-full transition-colors ${isActive ? 'bg-secondary-container/10 text-secondary' : 'text-on-surface-variant hover:text-secondary'}`
+                }
+              >
+                Topics
+              </NavLink>
+          </div>
         </div>
 
-        {/* Nav */}
-        <nav className="sidebar-nav">
-          <NavLink
-            to="/"
-            end
-            className={({ isActive }) =>
-              `sidebar-nav-item${isActive ? ' active' : ''}`
-            }
-          >
-            <LayoutDashboard size={18} />
-            Dashboard
-          </NavLink>
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `sidebar-nav-item${isActive ? ' active' : ''}`
-            }
-            onClick={(e) => {
-              if (window.location.pathname === '/') {
-                e.preventDefault();
-                document.getElementById('docs-section')?.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
-          >
-            <FileText size={18} />
-            Tài liệu
-          </NavLink>
-          <NavLink
-            to="/explore"
-            className={({ isActive }) =>
-              `sidebar-nav-item${isActive ? ' active' : ''}`
-            }
-          >
-            <BookOpen size={18} />
-            Cộng đồng
-          </NavLink>
-        </nav>
-
-        {/* Footer */}
-        <div className="sidebar-footer">
-          <div className="sidebar-user">
-            <div className="sidebar-avatar">{initials}</div>
-            <div className="sidebar-user-info">
-              <div className="sidebar-user-name">{user?.email || 'Guest'}</div>
-              <div className="sidebar-user-role">Học viên</div>
-            </div>
-          </div>
-          <button
-            className="btn btn-ghost w-full"
-            style={{ marginTop: '0.5rem', justifyContent: 'flex-start', gap: '0.5rem' }}
-            onClick={handleLogout}
-          >
-            <LogOut size={16} />
-            Đăng xuất
+        <div className="flex items-center gap-md">
+          <button aria-label="Notifications" className="w-10 h-10 flex items-center justify-center text-secondary rounded-full hover:bg-secondary-container/10 transition-colors active:scale-95 duration-200">
+            <span className="material-symbols-outlined text-[24px]">notifications</span>
           </button>
+          {/* Desktop Profile Avatar */}
+          <div 
+             className="hidden md:flex w-10 h-10 rounded-full bg-surface-container border border-outline-variant/20 cursor-pointer items-center justify-center font-bold text-secondary"
+             onClick={handleLogout}
+             title="Click to logout"
+          >
+             {initials}
+          </div>
         </div>
-      </aside>
+      </header>
 
-      {/* Main */}
-      <main className="main-content">
+      {/* Main Content Area */}
+      <main className="flex-grow w-full max-w-[800px] mx-auto px-md md:px-xl pt-24 pb-24 md:pb-8 flex flex-col gap-lg">
         <Outlet />
       </main>
+
+      {/* Bottom Nav Bar (Mobile Only) */}
+      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 rounded-t-xl bg-surface-container-lowest shadow-[0_-4px_20px_-5px_rgba(0,35,102,0.05)] border-t border-outline-variant/20 flex justify-around items-center h-20 px-sm">
+        <NavLink 
+          to="/" 
+          end
+          className={({ isActive }) => 
+            `flex flex-col items-center justify-center py-xs px-md rounded-xl transition-all active:scale-90 duration-150 ${isActive ? 'bg-secondary-container text-on-secondary-container' : 'text-on-surface-variant hover:bg-surface-container-low'}`
+          }
+        >
+          {({ isActive }) => (
+            <>
+              <span className="material-symbols-outlined mb-1" style={isActive ? { fontVariationSettings: "'FILL' 1" } : {}}>home</span>
+              <span className="font-label-caps text-label-caps">Home</span>
+            </>
+          )}
+        </NavLink>
+        
+        <NavLink 
+          to="/explore" 
+          className={({ isActive }) => 
+            `flex flex-col items-center justify-center py-xs px-md rounded-xl transition-all active:scale-90 duration-150 ${isActive ? 'bg-secondary-container text-on-secondary-container' : 'text-on-surface-variant hover:bg-surface-container-low'}`
+          }
+        >
+          {({ isActive }) => (
+            <>
+              <span className="material-symbols-outlined mb-1" style={isActive ? { fontVariationSettings: "'FILL' 1" } : {}}>grid_view</span>
+              <span className="font-label-caps text-label-caps">Topics</span>
+            </>
+          )}
+        </NavLink>
+
+        <button
+          onClick={handleLogout}
+          className="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150 rounded-xl"
+        >
+          <span className="material-symbols-outlined mb-1 text-error">logout</span>
+          <span className="font-label-caps text-label-caps">Logout</span>
+        </button>
+      </nav>
     </div>
   );
 }

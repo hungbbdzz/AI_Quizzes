@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BookOpen, Search, Loader2, Sparkles, BrainCircuit } from 'lucide-react';
 import useStore, { API_BASE } from '../store';
 
 export default function ExplorePage() {
@@ -15,7 +14,6 @@ export default function ExplorePage() {
   useEffect(() => {
     const fetchCommunityQuizzes = async () => {
       if (isGuest) {
-        // Trong chế độ demo, hiển thị các quiz mock
         const mockMap = getGuestQuizMap();
         const mockIds = Object.values(mockMap);
         const mockQuizzes = mockIds.map(id => useStore.getState().getGuestQuizById(id)).filter(Boolean);
@@ -46,77 +44,69 @@ export default function ExplorePage() {
 
   return (
     <>
-      <div className="page-header animate-fadeIn">
-        <h1>
-          Khám phá <span className="gradient-text">Cộng đồng</span>
-        </h1>
-        <p style={{ marginTop: '0.5rem' }}>
-          Làm bài các Quiz công khai do hệ thống và những người khác tạo.
-        </p>
-      </div>
-
-      {/* Search Bar */}
-      <div className="glass-card" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2rem' }}>
-        <Search size={18} color="var(--text-muted)" />
-        <input 
-          className="input" 
-          placeholder="Tìm kiếm chủ đề, lĩnh vực..." 
-          style={{ flex: 1, border: 'none', background: 'transparent' }}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
-
-      {error && <div className="alert alert-error" style={{ marginBottom: '1rem' }}>{error}</div>}
-
-      {/* Quiz Grid */}
-      {loading ? (
-        <div className="empty-state">
-          <Loader2 size={32} className="animate-spin" style={{ margin: '0 auto 1rem', display: 'block' }} />
-          <p>Đang tải dữ liệu cộng đồng...</p>
+      {/* Search Section */}
+      <section className="mt-lg mb-lg">
+        <h2 className="font-h2 text-h2 text-primary mb-md">Explore Topics</h2>
+        <div className="relative w-full">
+          <span className="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
+          <input 
+            className="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg py-sm pl-[48px] pr-sm font-body-md text-body-md text-on-surface focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all shadow-ambient outline-none" 
+            placeholder="Search for quizzes, topics, or categories..." 
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
-      ) : filteredQuizzes.length === 0 ? (
-        <div className="empty-state animate-fadeIn">
-          <BrainCircuit size={36} color="var(--color-primary)" style={{ margin: '0 auto 1rem', display: 'block' }} />
-          <h3 style={{ marginBottom: '0.5rem' }}>Không tìm thấy Quiz</h3>
-          <p>Chưa có quiz nào phù hợp hoặc chưa có ai chia sẻ.</p>
-        </div>
-      ) : (
-        <div className="doc-grid animate-fadeIn">
-          {filteredQuizzes.map((quiz) => (
-            <div 
-              key={quiz.id} 
-              className="doc-card"
-              onClick={() => navigate(`/quiz/${quiz.id}`)}
-              style={{ padding: '1.25rem' }}
-            >
-              <div className="doc-card-icon default" style={{ marginBottom: '1rem' }}>
-                <BookOpen size={22} />
-              </div>
-              <h3 style={{ fontSize: '1.05rem', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>
-                {quiz.title}
-              </h3>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-                <span className="badge badge-purple">{quiz.num_questions || 0} câu hỏi</span>
-                <span className="badge" style={{ background: 'rgba(255,255,255,0.05)' }}>
-                  Độ khó: {quiz.difficulty || 'TB'}
-                </span>
-              </div>
-              <div className="doc-card-actions" style={{ marginTop: 'auto' }}>
-                <button 
-                  className="btn btn-primary w-full" 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/quiz/${quiz.id}`);
-                  }}
-                >
-                  <Sparkles size={14} /> Làm Bài Ngay
-                </button>
-              </div>
-            </div>
-          ))}
+      </section>
+
+      {error && (
+        <div className="bg-error-container text-on-error-container p-sm rounded-xl mb-md border border-error/20 flex items-center gap-2">
+          <span className="material-symbols-outlined">error</span>
+          {error}
         </div>
       )}
+
+      {/* Quizzes Grid */}
+      <section>
+        <div className="flex justify-between items-center mb-md">
+          <h3 className="font-h3 text-h3 text-primary">All Community Quizzes</h3>
+        </div>
+
+        {loading ? (
+          <div className="flex justify-center p-xl">
+            <span className="material-symbols-outlined animate-spin text-secondary text-4xl">sync</span>
+          </div>
+        ) : filteredQuizzes.length === 0 ? (
+          <div className="bg-surface-container-lowest rounded-xl shadow-ambient p-xl border border-outline-variant/20 flex flex-col items-center gap-sm text-center">
+            <span className="material-symbols-outlined text-outline-variant text-[48px]">search_off</span>
+            <h4 className="font-button text-button text-on-background">Không tìm thấy Quiz</h4>
+            <p className="font-body-md text-body-md text-on-surface-variant">Chưa có quiz nào phù hợp hoặc chưa có ai chia sẻ.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-md">
+            {filteredQuizzes.map((quiz) => (
+              <div 
+                key={quiz.id}
+                className="bg-surface-container-lowest rounded-xl p-sm flex items-center gap-md border border-outline-variant/20 shadow-[0_5px_15px_-5px_rgba(0,35,102,0.05)] hover:border-secondary hover:bg-surface-container-low transition-all cursor-pointer group"
+                onClick={() => navigate(`/quiz/${quiz.id}`)}
+              >
+                <div className="w-14 h-14 rounded-lg bg-[#eaf1ff] flex items-center justify-center text-secondary shrink-0">
+                  <span className="material-symbols-outlined text-[28px]">psychology</span>
+                </div>
+                <div className="flex-grow min-w-0">
+                  <h4 className="font-button text-button text-on-background truncate">{quiz.title}</h4>
+                  <p className="font-body-md text-body-md text-on-surface-variant text-sm truncate">
+                    Độ khó: {quiz.difficulty || 'TB'}
+                  </p>
+                </div>
+                <div className="px-sm py-xs bg-surface-container rounded-full font-label-caps text-label-caps text-secondary shrink-0">
+                  {quiz.num_questions || 0} Qs
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
     </>
   );
 }

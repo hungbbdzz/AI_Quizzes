@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BrainCircuit, Eye, EyeOff, Loader2 } from 'lucide-react';
 import useStore, { API_BASE } from '../store';
 
 export default function AuthPage() {
@@ -56,31 +55,27 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
+    <div className="min-h-screen bg-surface-container-low flex items-center justify-center p-md text-on-background">
+      <div className="bg-surface-container-lowest w-full max-w-md rounded-xl shadow-ambient p-xl border border-outline-variant/20 flex flex-col items-center">
         {/* Logo */}
-        <div className="auth-logo">
-          <div className="auth-logo-icon">
-            <BrainCircuit size={28} color="#fff" />
+        <div className="flex flex-col items-center mb-lg">
+          <div className="w-14 h-14 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-sm">
+            <span className="material-symbols-outlined text-[32px]">psychology</span>
           </div>
-          <h2 style={{ marginBottom: '0.25rem' }}>
-            <span className="gradient-text">AI Quizzes</span>
-          </h2>
-          <p style={{ fontSize: '0.9rem' }}>
-            Học thông minh hơn cùng trí tuệ nhân tạo
-          </p>
+          <h2 className="font-h2 text-h2 text-primary">QuizMaster</h2>
+          <p className="font-body-md text-body-md text-on-surface-variant text-center mt-xs">Học thông minh hơn cùng AI</p>
         </div>
 
         {/* Tabs */}
-        <div className="auth-tabs">
+        <div className="flex w-full bg-surface-container rounded-lg p-[4px] mb-md border border-outline-variant/10">
           <button
-            className={`auth-tab${tab === 'login' ? ' active' : ''}`}
+            className={`flex-1 font-button text-button py-xs rounded-md transition-colors ${tab === 'login' ? 'bg-surface-container-lowest text-secondary shadow-[0_2px_4px_rgba(0,0,0,0.05)]' : 'text-on-surface-variant hover:text-on-background'}`}
             onClick={() => { setTab('login'); setError(''); setSuccess(''); }}
           >
             Đăng nhập
           </button>
           <button
-            className={`auth-tab${tab === 'register' ? ' active' : ''}`}
+            className={`flex-1 font-button text-button py-xs rounded-md transition-colors ${tab === 'register' ? 'bg-surface-container-lowest text-secondary shadow-[0_2px_4px_rgba(0,0,0,0.05)]' : 'text-on-surface-variant hover:text-on-background'}`}
             onClick={() => { setTab('register'); setError(''); setSuccess(''); }}
           >
             Đăng ký
@@ -89,22 +84,24 @@ export default function AuthPage() {
 
         {/* Alerts */}
         {error && (
-          <div className="alert alert-error" style={{ marginBottom: '1rem' }}>
-            ⚠️ {error}
+          <div className="w-full bg-error-container text-on-error-container p-sm rounded-lg mb-md border border-error/20 flex items-center gap-xs text-sm">
+            <span className="material-symbols-outlined text-[18px]">error</span>
+            {error}
           </div>
         )}
         {success && (
-          <div className="alert alert-success" style={{ marginBottom: '1rem' }}>
-            ✓ {success}
+          <div className="w-full bg-[#e6f4ea] text-[#16a34a] p-sm rounded-lg mb-md border border-[#16a34a]/20 flex items-center gap-xs text-sm">
+            <span className="material-symbols-outlined text-[18px]">check_circle</span>
+            {success}
           </div>
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label className="input-label">Email</label>
+        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-md">
+          <div className="flex flex-col gap-xs">
+            <label className="font-label-caps text-label-caps text-on-surface-variant">Email</label>
             <input
-              className="input"
+              className="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-sm py-sm font-body-md text-body-md text-on-background focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all outline-none"
               type="email"
               placeholder="ban@example.com"
               value={email}
@@ -114,49 +111,37 @@ export default function AuthPage() {
             />
           </div>
 
-          <div className="input-group">
-            <label className="input-label">Mật khẩu</label>
-            <div style={{ position: 'relative' }}>
+          <div className="flex flex-col gap-xs">
+            <label className="font-label-caps text-label-caps text-on-surface-variant">Mật khẩu</label>
+            <div className="relative w-full">
               <input
-                className="input"
+                className="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg pl-sm pr-[40px] py-sm font-body-md text-body-md text-on-background focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all outline-none"
                 type={showPass ? 'text' : 'password'}
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete={tab === 'login' ? 'current-password' : 'new-password'}
-                style={{ paddingRight: '2.8rem' }}
               />
               <button
                 type="button"
                 onClick={() => setShowPass(!showPass)}
-                style={{
-                  position: 'absolute',
-                  right: '0.75rem',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  color: 'var(--text-muted)',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
+                className="absolute right-sm top-1/2 -translate-y-1/2 text-outline-variant hover:text-on-background flex items-center justify-center transition-colors"
+                tabIndex="-1"
               >
-                {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
+                <span className="material-symbols-outlined text-[20px]">{showPass ? 'visibility_off' : 'visibility'}</span>
               </button>
             </div>
           </div>
 
           <button
             type="submit"
-            className="btn btn-primary btn-lg w-full"
-            style={{ marginTop: '0.5rem', justifyContent: 'center' }}
+            className="w-full bg-secondary text-on-secondary font-button text-button py-sm rounded-full shadow-md hover:-translate-y-0.5 hover:shadow-hover transition-all active:translate-y-0 flex items-center justify-center gap-xs mt-sm"
             disabled={loading}
           >
             {loading ? (
               <>
-                <Loader2 size={18} className="animate-spin" />
+                <span className="material-symbols-outlined animate-spin text-[18px]">sync</span>
                 Đang xử lý...
               </>
             ) : tab === 'login' ? 'Đăng nhập' : 'Tạo tài khoản'}
@@ -164,24 +149,21 @@ export default function AuthPage() {
         </form>
 
         {/* Divider */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', margin: '1rem 0' }}>
-          <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>hoặc</span>
-          <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
+        <div className="flex items-center gap-sm w-full my-lg">
+          <div className="flex-1 h-[1px] bg-outline-variant/30"></div>
+          <span className="font-label-caps text-label-caps text-outline">Hoặc</span>
+          <div className="flex-1 h-[1px] bg-outline-variant/30"></div>
         </div>
 
         {/* Guest Login */}
         <button
           type="button"
-          className="btn btn-ghost btn-lg w-full"
-          style={{ justifyContent: 'center', border: '1px dashed var(--color-border)', gap: '0.5rem' }}
+          className="w-full border border-dashed border-outline-variant hover:border-secondary hover:bg-surface-container-low text-on-surface-variant hover:text-secondary font-button text-button py-sm rounded-full transition-colors flex flex-col items-center"
           onClick={handleGuestLogin}
         >
-          👤 Dùng thử (Guest Demo)
+          <span>Dùng thử (Guest Demo)</span>
+          <span className="font-label-caps text-label-caps text-outline mt-[2px] font-normal">Không cần đăng ký - Dữ liệu mẫu</span>
         </button>
-        <p style={{ textAlign: 'center', fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>
-          Không cần đăng ký — dữ liệu mẫu, không lưu
-        </p>
       </div>
     </div>
   );

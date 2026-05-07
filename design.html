@@ -1,0 +1,2151 @@
+< !--Full Leaderboard Rankings-- >
+< !DOCTYPE html >
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuizMaster - Leaderboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#2a4386",
+                        "tertiary-fixed": "#dee2ed",
+                        "surface-container": "#e5eeff",
+                        "on-background": "#0b1c30",
+                        "surface-bright": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#00174a",
+                        "primary-container": "#002366",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "tertiary": "#10151c",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#fefcff",
+                        "surface-container-low": "#eff4ff",
+                        "secondary": "#0058be",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c2c6d1",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "tertiary-container": "#242931",
+                        "surface": "#f8f9ff",
+                        "outline": "#757682",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c5c6d2",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "on-primary-container": "#758dd5",
+                        "on-tertiary-fixed": "#171c23",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-fixed": "#001a42",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-tertiary-container": "#8b909a",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-surface": "#0b1c30",
+                        "on-tertiary-fixed-variant": "#424750",
+                        "inverse-primary": "#b3c5ff",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "primary": "#00113a",
+                        "surface-dim": "#cbdbf5",
+                        "surface-tint": "#435b9f",
+                        "on-surface-variant": "#444650",
+                        "secondary-container": "#2170e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "xs": "8px",
+                        "unit": "4px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "lg": "48px",
+                        "container-max": "1200px",
+                        "sm": "16px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "h2": ["Inter"],
+                        "h1": ["Inter"],
+                        "button": ["Inter"],
+                        "h3": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h2": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "button": ["16px", { "lineHeight": "1.0", "fontWeight": "600" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24 pt-16">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-lowest fixed top-0 left-0 w-full z-50 shadow-md shadow-secondary/5 shadow-md flex justify-between items-center h-16 px-md w-full">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant flex-shrink-0">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A high-quality, professional headshot of a young woman with a natural smile, positioned perfectly in the center. The lighting is soft and flattering, highlighting her features against a clean, modern studio background. The overall aesthetic is polished, approachable, and highly suited for a premium tech or SaaS application profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4E6e4TSJjEL1Oe1O2UU4bAJYQdB1sQKegLDl5Zi2TsCppQFB2HdyE9Xb9lmmfYGFqZ3uDbSsSn0cwkpVgO82Zyz9yhEQbb4nsROsWtmaqkuEerf68Ja6rgJZJZL4YJOZO6w_I-5XkWuh_qLZy0nsYs4D1YL-X91dtraK84cCICZ7bpnsYVuwNHjuqeTrg2PFDUl-A7xWCsWn6GcppxkimwhlpEb-nkO4FesMzLQ_CetnvGaSMFK-ab4lsiz75d-clV7kdKVJDV7Va"/>
+</div>
+<h1 class="font-h3 text-h3 font-bold text-secondary dark:text-secondary-fixed-dim tracking-tight">QuizMaster</h1>
+<button class="text-secondary dark:text-secondary-fixed-dim hover:bg-secondary-container/10 transition-colors active:scale-95 duration-200 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="max-w-[800px] mx-auto px-sm md:px-md py-lg flex flex-col gap-lg">
+<!-- Toggle -->
+<div class="flex justify-center">
+<div class="inline-flex bg-surface-container-low rounded-xl p-unit shadow-[0_4px_12px_-4px_rgba(0,35,102,0.05)]">
+<button class="px-md py-sm rounded-lg bg-surface text-secondary font-button text-button shadow-[0_2px_8px_-2px_rgba(0,35,102,0.08)] transition-all">Global</button>
+<button class="px-md py-sm rounded-lg text-on-surface-variant font-button text-button hover:bg-surface-container transition-all">Friends</button>
+</div>
+</div>
+<!-- Podium -->
+<div class="flex items-end justify-center gap-xs md:gap-md h-64 mt-md">
+<!-- Rank 2 -->
+<div class="flex flex-col items-center w-24 md:w-32 animate-fade-in-up" style="animation-delay: 0.1s;">
+<div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-surface-container-highest overflow-hidden mb-sm relative z-10 shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)]">
+<img alt="Player 2" class="w-full h-full object-cover" data-alt="A portrait of a confident young man looking slightly off-camera, rendered in a crisp, modern photographic style. The lighting is bright and even, evoking a premium lifestyle aesthetic. The background is slightly blurred to keep focus on the subject, perfectly suited for a high-end application leaderboard avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmceRw_1MUw-dWMgDWnmoiPt5nv-MxA0lv-deXZ5ZYuZQeVfIRVu0pYg07QwhwIRVL07THmA9YxlN1uGoq8j_ZdkgFr8Q5ivJRkWLc_bJZimjgF_Yvpm4xuTcVNsoTZnYEApfkCszq1pRnKU7RJhSzlZ7yPFdMiiWwO0xOCzIOIu2wCNTQZsAlx5uT1N6NQpXxaVTfncEhoqip6aWB5_w-LtouIk7sXLpUir3XQYuQskY7Bs56XXnTxeYMHVL1p-t5ojO6yCVq2GS0"/>
+</div>
+<div class="bg-surface-container-highest rounded-t-xl w-full h-32 flex flex-col items-center justify-start pt-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/20 to-transparent"></div>
+<span class="font-h2 text-h2 text-secondary opacity-50">2</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface mt-xs truncate w-full text-center px-xs">Alex.T</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-unit">12.4K</span>
+</div>
+</div>
+<!-- Rank 1 -->
+<div class="flex flex-col items-center w-28 md:w-36 relative z-20 animate-fade-in-up">
+<span class="material-symbols-outlined text-secondary absolute -top-8 text-4xl drop-shadow-md" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<div class="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-secondary overflow-hidden mb-sm relative z-10 shadow-[0_10px_25px_-5px_rgba(0,35,102,0.15)] bg-surface">
+<img alt="Player 1" class="w-full h-full object-cover" data-alt="A vibrant and engaging portrait of a woman smiling broadly, captured with crystal-clear focus and high-key lighting. The aesthetic is clean, professional, and optimistic, embodying a modern tech brand's visual identity. The background is a soft, non-distracting hue, making it an ideal hero avatar for a top-ranking user." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5pKs7WIXAsUr1egf7Mc2X-9Z5YfPLyScJuQmWxcJIgLZyiIAjuyC063qg3uuOCyBZYcC9PNnWdJI90vCJy3T-cfhFmNee7QuHmOUp9blbybRG-EgpZ6SeD4DOb-myicMJP5lNPGEfpCVaN8gtji8EjeEw-sKb3_NZU9El1OngPX0b-_-Qxj_Yow8O_yjXYJVbanvC5PqEIty02j__9ZLzHrTHhL_1XVVYE2fD5p9bU-N9C1g_jThBhhPgm3msQEAoZQZuANc0HEWA"/>
+</div>
+<div class="bg-secondary-container rounded-t-xl w-full h-40 flex flex-col items-center justify-start pt-sm relative overflow-hidden shadow-[0_-10px_30px_-10px_rgba(33,112,228,0.3)]">
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/20 to-transparent"></div>
+<span class="font-h1 text-h1 text-on-secondary-container opacity-90 drop-shadow-sm">1</span>
+<span class="font-body-lg text-body-lg font-bold text-on-secondary-container mt-xs truncate w-full text-center px-xs">Sarah J.</span>
+<span class="font-button text-button text-on-secondary-container mt-unit opacity-90">15.2K</span>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="flex flex-col items-center w-24 md:w-32 animate-fade-in-up" style="animation-delay: 0.2s;">
+<div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-surface-container overflow-hidden mb-sm relative z-10 shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)]">
+<img alt="Player 3" class="w-full h-full object-cover" data-alt="A close-up headshot of a professional man wearing glasses, exuding a smart and thoughtful demeanor. The photograph features crisp, modern lighting with a very shallow depth of field, blurring out a high-end corporate or modern studio background. The image fits perfectly within a premium, minimalist user interface design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtS7-qWWP5zgg2MiGTAr4iTuNBFPPZb40yK2SOL-iEA_ELS6VV3arU7qz0a4Hjm1uoA0mJcHU4AsXyH1OiaUEf8-ubvrCUQPCler0y0NXqHxyGd8JIzid61IA-3cwBa6ZgyTc3GDblNaAdML4d-B8Z4dEz15gYLdLLiyn2giA22s1zIjETmJVsJ798mtGxWHHap6bafugDYihzWw88g5mz3U_EOluTcIb0BF6DwWzynoURKgFyPp3ZquOtY7dt918X--5pDTy2zDIw"/>
+</div>
+<div class="bg-surface-container rounded-t-xl w-full h-24 flex flex-col items-center justify-start pt-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/20 to-transparent"></div>
+<span class="font-h2 text-h2 text-on-surface-variant opacity-50">3</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface mt-xs truncate w-full text-center px-xs">Mike R.</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-unit">11.8K</span>
+</div>
+</div>
+</div>
+<!-- Leaderboard List -->
+<div class="flex flex-col gap-sm bg-surface rounded-xl shadow-[0_10px_25px_-5px_rgba(0,35,102,0.04)] p-sm border border-surface-container">
+<!-- List Item -->
+<div class="flex items-center justify-between p-sm rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-md">
+<span class="font-button text-button text-on-surface-variant w-6 text-center group-hover:text-secondary transition-colors">4</span>
+<img alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-outline-variant/30" data-alt="A stylish portrait of a person with a bright, welcoming expression, captured in natural daylight. The composition is clean and contemporary, with a soft, minimalist aesthetic that aligns with high-end digital platforms. The lighting accentuates a feeling of modern professionalism and clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsh5jxiCFhbCa4A-ZXumdnYyP5GswY6fK00Up2uzowLgTYkXxEYiK4ztXu6JHq9DZJQd3_syFtIL4aU9irM2MCot_akPPJbEqcJYHFXdEX2zFEeTKKgtmngdwRusKgRd1nE0s6Osxu5JlQzmMEDKiv6XnRuD9W2SF__b8b5IuiIzfFqGl1I-Dad940lE28HQkr5t_Gl5BgUzcWWzX1ETbNVWQwOQtleAevMUCf0ICs3CChZtF_setnimDmXMob5jl9xW26uFrpO9YB"/>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Emma Watson</span>
+</div>
+<div class="flex items-center gap-xs text-secondary">
+<span class="font-button text-button">10.5K</span>
+<span class="material-symbols-outlined text-sm">local_fire_department</span>
+</div>
+</div>
+<hr class="border-surface-container-high mx-md"/>
+<!-- List Item (User - Highlighted) -->
+<div class="flex items-center justify-between p-sm rounded-lg bg-surface-container shadow-[0_4px_12px_-4px_rgba(0,35,102,0.08)] border border-secondary/20 relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="flex items-center gap-md pl-unit">
+<span class="font-button text-button text-secondary w-6 text-center">5</span>
+<img alt="User Avatar" class="w-10 h-10 rounded-full object-cover border-2 border-secondary" data-alt="A high-quality, professional headshot of a young woman with a natural smile, positioned perfectly in the center. The lighting is soft and flattering, highlighting her features against a clean, modern studio background. The overall aesthetic is polished, approachable, and highly suited for a premium tech or SaaS application profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhQ_SgCz0lFMtAeD9_Kg5rcfxYnY91-asBTg4i67Bn4giZdUK16cyKD883eSkXT1NYw4xA9EuL1ZjQfUDaTs0aggkHrfEMbLaCxT8QfiuQ5nMIbqhcbFZ4W1CX6339kgD3y1_pX_WXr9CVVRqHZ5R2BH9iCZAvjDn_1gg2lnAbjDHXyovlKij0GEYCYALZQCcgHP89lVC6_uLTc1nIqwfpWIHhW4wpVUOyJT4ID_UJ7MMsN2QJispxjWk2J-p0WvU5iSQW8hem0dWm"/>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-bold text-on-surface">You</span>
+</div>
+</div>
+<div class="flex items-center gap-xs text-secondary font-bold">
+<span class="font-button text-button">9.2K</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+</div>
+<hr class="border-surface-container-high mx-md"/>
+<!-- List Item -->
+<div class="flex items-center justify-between p-sm rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-md">
+<span class="font-button text-button text-on-surface-variant w-6 text-center group-hover:text-secondary transition-colors">6</span>
+<img alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-outline-variant/30" data-alt="A portrait of a male subject with a confident gaze, photographed against a clean, unobtrusive background. The lighting is sharp and dynamic, providing a high-contrast yet professional look typical of premium corporate headshots. The image radiates a sense of competence and modern digital sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAo2zSyz8AThm5cqE2JDb3OF-sXN2uuXoXHntBXD_IWGrpn_xRBnV2WNi86jzdRzIbJolfSWFDTux1P0q1ZA7rk8yI9JkS8SBgeOt_2TYqyJhsPbUFCaH31wX-so5ty8_HSJLxm7o2Iz3xVKdZQOFx82cpWYAUY-yfGrBW6hxCI8w5BS56lAybArNgDwp9wKtGkzT746ARBB5BSzOaj2mEw-Va4opquf8ABPAZXs9ETO1AVhKUCtuXJH5mSz5Xqc9DYEUCqyicfiFF"/>
+<span class="font-body-md text-body-md font-semibold text-on-surface">David Chen</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="font-button text-button">8.8K</span>
+</div>
+</div>
+<hr class="border-surface-container-high mx-md"/>
+<!-- List Item -->
+<div class="flex items-center justify-between p-sm rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-md">
+<span class="font-button text-button text-on-surface-variant w-6 text-center group-hover:text-secondary transition-colors">7</span>
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center border border-outline-variant/30 text-on-tertiary-fixed font-button">
+                        JS
+                    </div>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Jessica S.</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="font-button text-button">8.1K</span>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-surface-container-lowest fixed bottom-0 left-0 w-full z-50 rounded-t-xl border-t border-outline-variant/20 shadow-[0_-4px_20px_-5px_rgba(0,35,102,0.05)] shadow-lg flex justify-around items-center h-20 px-sm w-full md:hidden">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 transition-transform duration-150 rounded-xl">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary-container text-on-secondary-container dark:text-on-secondary-container rounded-xl py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+<span class="font-label-caps text-label-caps">Leagues</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 transition-transform duration-150 rounded-xl">
+<span class="material-symbols-outlined mb-1">grid_view</span>
+<span class="font-label-caps text-label-caps">Topics</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 transition-transform duration-150 rounded-xl">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</button>
+</nav>
+<!-- Desktop Side Nav Spacer (Hidden on mobile, ensures main content doesn't stretch too wide if a side nav were present in a fuller layout context) -->
+<div class="hidden md:block fixed left-0 top-16 h-full w-64 bg-surface-container-lowest border-r border-outline-variant/20 z-40 px-md py-lg">
+<div class="flex flex-col gap-sm">
+<button class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors w-full text-left">
+<span class="material-symbols-outlined">home</span>
+<span class="font-button text-button">Home</span>
+</button>
+<button class="flex items-center gap-md px-md py-sm rounded-lg bg-secondary-container text-on-secondary-container w-full text-left">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+<span class="font-button text-button">Leagues</span>
+</button>
+<button class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors w-full text-left">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-button text-button">Topics</span>
+</button>
+<button class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors w-full text-left">
+<span class="material-symbols-outlined">person</span>
+<span class="font-button text-button">Profile</span>
+</button>
+</div>
+</div>
+<style>
+        @media (min-width: 768px) {
+            main { margin-left: 16rem; /* 256px for md side nav */ max-width: calc(100% - 16rem); }
+        }
+        @media (min-width: 1024px) {
+             main { max-width: 800px; margin-left: auto; margin-right: auto; padding-left: 16rem; box-sizing: content-box;}
+        }
+    </style>
+</body></html>
+
+<!--User Profile & Achievements-- >
+< !DOCTYPE html >
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuizMaster - Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#f8f9ff",
+                      "surface-container-high": "#dce9ff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed-variant": "#2a4386",
+                      "tertiary-fixed": "#dee2ed",
+                      "surface-container": "#e5eeff",
+                      "on-background": "#0b1c30",
+                      "surface-bright": "#f8f9ff",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed": "#00174a",
+                      "primary-container": "#002366",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-highest": "#d3e4fe",
+                      "tertiary": "#10151c",
+                      "error": "#ba1a1a",
+                      "on-secondary-container": "#fefcff",
+                      "surface-container-low": "#eff4ff",
+                      "secondary": "#0058be",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#c2c6d1",
+                      "secondary-fixed-dim": "#adc6ff",
+                      "tertiary-container": "#242931",
+                      "surface": "#f8f9ff",
+                      "outline": "#757682",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#c5c6d2",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-surface": "#213145",
+                      "on-primary-container": "#758dd5",
+                      "on-tertiary-fixed": "#171c23",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "primary-fixed": "#dbe1ff",
+                      "on-secondary-fixed": "#001a42",
+                      "on-secondary-fixed-variant": "#004395",
+                      "on-tertiary-container": "#8b909a",
+                      "secondary-fixed": "#d8e2ff",
+                      "on-surface": "#0b1c30",
+                      "on-tertiary-fixed-variant": "#424750",
+                      "inverse-primary": "#b3c5ff",
+                      "on-error": "#ffffff",
+                      "surface-variant": "#d3e4fe",
+                      "primary": "#00113a",
+                      "surface-dim": "#cbdbf5",
+                      "surface-tint": "#435b9f",
+                      "on-surface-variant": "#444650",
+                      "secondary-container": "#2170e4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "80px",
+                      "xs": "8px",
+                      "unit": "4px",
+                      "md": "24px",
+                      "gutter": "24px",
+                      "lg": "48px",
+                      "container-max": "1200px",
+                      "sm": "16px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "h2": [
+                              "Inter"
+                      ],
+                      "h1": [
+                              "Inter"
+                      ],
+                      "button": [
+                              "Inter"
+                      ],
+                      "h3": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h2": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "h1": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "button": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "h3": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-lowest fixed top-0 left-0 w-full z-50 shadow-md shadow-secondary/5 flex justify-between items-center h-16 px-md w-full">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A clean, modern headshot of a confident young professional with a neutral expression. The lighting is soft and flattering, suitable for a premium educational app profile picture. The background is a crisp, bright white that complements the minimalist, airy design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw4PxifUub6ZLCLTOBb-qOk7lXxqRGfwBZ-en5fo3e63FQCuG-JQqLufsq-8EkA-sUTUTng00iL8g0Vy46fCRCXRrXw_UG3ZY8oW1PRXinkoeR5Za7FaYux9lsXrVf15Hqv-mmEUXMbdWtwL_jK3KBpWhwL14CCTttwIVwpY8iLXunPsF5Jh3a-D00xqnORA0V79HtMk6lz0Aj8NW_xwsg5z29Ja1DMv7yPRUlo8nglW1VNIKE_FB8jiZi2kPKmCqQdK26o98uXtCA"/>
+</div>
+<div class="font-h3 text-h3 font-bold text-secondary dark:text-secondary-fixed-dim tracking-tight">QuizMaster</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-secondary-container/10 transition-colors active:scale-95 duration-200 text-on-surface-variant dark:text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-[88px] pb-[100px] px-md md:px-lg max-w-[800px] mx-auto w-full">
+<!-- Profile Header -->
+<section class="flex flex-col items-center text-center mt-md mb-lg">
+<div class="relative mb-sm">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-surface-container-lowest shadow-[0_10px_25px_-5px_rgba(0,35,102,0.15)] relative z-10">
+<img alt="Alex Avatar" class="w-full h-full object-cover" data-alt="A clean, modern headshot of a confident young professional with a neutral expression. The lighting is soft and flattering, suitable for a premium educational app profile picture. The background is a crisp, bright white that complements the minimalist, airy design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhePZTUNEXRlDsBbgQLR6Uu3OEXqA8xbv2k1dSjEWiinLr5XTR_MAAX6XCtkHH0vbhmFLYRDDBkT9m06zPSOqYpkuFLFlKkKllphzNYkxrsimVpCjKqGmKQhqdzRJKfj5137npPqk_M-nDddvvdtqebgOvfqZmWt5OvoSBDyECCfAlglr88Wmab58NLkhMr5W3M1FyXmQ_1khcYkd_fdpYt_SUbEavGQh1h6F3Yad_mkIcsP45oc6YApeita-_vlU8q8iEU5PZDsdS"/>
+</div>
+<div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-secondary to-primary-container text-on-secondary font-label-caps text-label-caps px-md py-unit rounded-full border-2 border-surface-container-lowest z-20 shadow-md whitespace-nowrap">
+                    Diamond League
+                </div>
+</div>
+<h1 class="font-h2 text-h2 text-on-background mt-sm">Alex</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-unit">Quiz Enthusiast &amp; Top Contributor</p>
+</section>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-2 md:grid-cols-3 gap-sm mb-lg">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)] flex flex-col items-center text-center border border-outline-variant/20">
+<div class="w-12 h-12 rounded-full bg-surface-container-low text-secondary flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-[28px]" data-icon="task_alt">task_alt</span>
+</div>
+<div class="font-h3 text-h3 text-on-background">428</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mt-unit">Quizzes Completed</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)] flex flex-col items-center text-center border border-outline-variant/20">
+<div class="w-12 h-12 rounded-full bg-surface-container-low text-secondary flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-[28px]" data-icon="toll">toll</span>
+</div>
+<div class="font-h3 text-h3 text-on-background">15,420</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mt-unit">Total Points</div>
+</div>
+<!-- Stat Card 3 (Spans 2 cols on mobile, 1 on desktop) -->
+<div class="col-span-2 md:col-span-1 bg-gradient-to-br from-primary-container to-secondary p-md rounded-xl shadow-[0_10px_25px_-5px_rgba(0,35,102,0.15)] flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-on-secondary/10 text-on-secondary flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-[28px]" data-icon="public">public</span>
+</div>
+<div class="font-h3 text-h3 text-on-secondary">#142</div>
+<div class="font-label-caps text-label-caps text-on-secondary/80 mt-unit">Global Rank</div>
+</div>
+</section>
+<!-- Achievements -->
+<section class="mb-lg">
+<h2 class="font-h3 text-h3 text-on-background mb-sm">Achievements</h2>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)] p-md border border-outline-variant/20">
+<div class="flex space-x-sm overflow-x-auto pb-sm snap-x">
+<!-- Badge 1 -->
+<div class="flex-shrink-0 flex flex-col items-center w-24 snap-start">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center border-2 border-secondary/20 mb-unit shadow-sm">
+<span class="material-symbols-outlined text-[32px] text-secondary" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant text-center">7 Day Streak</span>
+</div>
+<!-- Badge 2 -->
+<div class="flex-shrink-0 flex flex-col items-center w-24 snap-start">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center border-2 border-primary-container/20 mb-unit shadow-sm">
+<span class="material-symbols-outlined text-[32px] text-primary-container" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant text-center">Trivia Master</span>
+</div>
+<!-- Badge 3 -->
+<div class="flex-shrink-0 flex flex-col items-center w-24 snap-start">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center border-2 border-[#D4AF37]/20 mb-unit shadow-sm">
+<span class="material-symbols-outlined text-[32px] text-[#D4AF37]" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant text-center">1st Place</span>
+</div>
+<!-- Badge 4 (Locked) -->
+<div class="flex-shrink-0 flex flex-col items-center w-24 snap-start opacity-50 grayscale">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center border-2 border-outline-variant/20 mb-unit">
+<span class="material-symbols-outlined text-[32px] text-outline" data-icon="lock">lock</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant text-center">100 Perfect</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Links List -->
+<section class="flex flex-col gap-unit">
+<a class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors rounded-xl p-md flex items-center justify-between border border-outline-variant/20 shadow-sm active:scale-[0.98] duration-150" href="#">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="collections_bookmark">collections_bookmark</span>
+</div>
+<span class="font-button text-button text-on-background">My Collections</span>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+</a>
+<a class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors rounded-xl p-md flex items-center justify-between border border-outline-variant/20 shadow-sm active:scale-[0.98] duration-150" href="#">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</div>
+<span class="font-button text-button text-on-background">Favorite Topics</span>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+</a>
+<a class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors rounded-xl p-md flex items-center justify-between border border-outline-variant/20 shadow-sm active:scale-[0.98] duration-150" href="#">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</div>
+<span class="font-button text-button text-on-background">Account Settings</span>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+</a>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-surface-container-lowest fixed bottom-0 left-0 w-full z-50 rounded-t-xl border-t border-outline-variant/20 shadow-[0_-4px_20px_-5px_rgba(0,35,102,0.05)] flex justify-around items-center h-20 px-sm w-full md:hidden">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined mb-1" data-icon="leaderboard">leaderboard</span>
+<span class="font-label-caps text-label-caps">Leagues</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined mb-1" data-icon="grid_view">grid_view</span>
+<span class="font-label-caps text-label-caps">Topics</span>
+</button>
+<!-- Active State -->
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary-container text-on-secondary-container dark:text-on-secondary-container rounded-xl py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined mb-1" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</button>
+</nav>
+<!-- Desktop Side Nav Spacer / Future Proofing (Hidden on mobile) -->
+<div class="hidden md:block fixed bottom-0 left-0 w-full h-20 bg-surface-container-lowest border-t border-outline-variant/20 z-40 pointer-events-none opacity-0"></div>
+</body></html>
+
+<!--Explore Quiz Topics-- >
+< !DOCTYPE html >
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuizMaster - Topics Discovery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#2a4386",
+                        "tertiary-fixed": "#dee2ed",
+                        "surface-container": "#e5eeff",
+                        "on-background": "#0b1c30",
+                        "surface-bright": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#00174a",
+                        "primary-container": "#002366",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "tertiary": "#10151c",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#fefcff",
+                        "surface-container-low": "#eff4ff",
+                        "secondary": "#0058be",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c2c6d1",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "tertiary-container": "#242931",
+                        "surface": "#f8f9ff",
+                        "outline": "#757682",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c5c6d2",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "on-primary-container": "#758dd5",
+                        "on-tertiary-fixed": "#171c23",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-fixed": "#001a42",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-tertiary-container": "#8b909a",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-surface": "#0b1c30",
+                        "on-tertiary-fixed-variant": "#424750",
+                        "inverse-primary": "#b3c5ff",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "primary": "#00113a",
+                        "surface-dim": "#cbdbf5",
+                        "surface-tint": "#435b9f",
+                        "on-surface-variant": "#444650",
+                        "secondary-container": "#2170e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "xs": "8px",
+                        "unit": "4px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "lg": "48px",
+                        "container-max": "1200px",
+                        "sm": "16px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "h2": ["Inter"],
+                        "h1": ["Inter"],
+                        "button": ["Inter"],
+                        "h3": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h2": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "button": ["16px", { "lineHeight": "1.0", "fontWeight": "600" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-[100px] pt-[80px]">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest shadow-md shadow-secondary/5 h-16">
+<div class="flex justify-between items-center h-16 px-md w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high shrink-0">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A close-up portrait of a professional individual looking confident. The lighting is soft and natural, emphasizing a welcoming and authoritative expression suitable for a high-end corporate or educational platform avatar. The background is slightly blurred to keep the focus on the subject." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY6oDb0D2LCUYnt548VXJe8huphu7H_7k_FtiSUa9e8v_l1Q70hIV49xEj9VMGdranEeZ2oao0yLj6RUDd2WoszIzaN98G9x0Yv0peStV2AjMrau3s29O4VQs7xOAAl6jusS5tpTOptPSLSQwuxh1J6JUoiKvzoBi7q2pAdupG55AHjKzGN_F_E1IDHXZ_H7DTwb2MFxMyWa84qF3Sme9Z-JzskFxE-BCuWvUyBBqzQuGD00rj75FGtwwBfgR3iADzlWnik59ucp_6"/>
+</div>
+</div>
+<h1 class="font-h3 text-h3 font-bold text-secondary tracking-tight">QuizMaster</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-secondary hover:bg-secondary-container/10 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</div>
+</header>
+<main class="max-w-[800px] mx-auto px-md">
+<!-- Search Section -->
+<section class="mt-lg mb-lg">
+<h2 class="font-h2 text-h2 text-on-background mb-md">Explore Topics</h2>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-lowest border-outline-variant/50 rounded-lg py-sm pl-[48px] pr-sm font-body-md text-body-md text-on-surface focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all shadow-[0_4px_15px_-3px_rgba(0,35,102,0.05)]" placeholder="Search for quizzes, topics, or categories..." type="text"/>
+</div>
+</section>
+<!-- Trending Topics (Horizontal Scroll) -->
+<section class="mb-xl">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-h3 text-h3 text-on-background">Trending Now</h3>
+<button class="font-button text-button text-secondary hover:bg-secondary-container/10 px-sm py-xs rounded-lg transition-colors">View All</button>
+</div>
+<div class="flex overflow-x-auto pb-sm gap-sm -mx-md px-md scrollbar-hide snap-x" style="scrollbar-width: none;">
+<!-- Trending Card 1 -->
+<div class="snap-start shrink-0 w-[240px] bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)] hover:-translate-y-1 hover:shadow-[0_15px_30px_-5px_rgba(0,35,102,0.12)] transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center mb-md text-secondary group-hover:bg-secondary-container group-hover:text-on-secondary-container transition-colors">
+<span class="material-symbols-outlined">public</span>
+</div>
+<h4 class="font-button text-button text-on-background mb-xs">Global Geography</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Test your knowledge of world capitals and borders.</p>
+</div>
+<!-- Trending Card 2 -->
+<div class="snap-start shrink-0 w-[240px] bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)] hover:-translate-y-1 hover:shadow-[0_15px_30px_-5px_rgba(0,35,102,0.12)] transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center mb-md text-secondary group-hover:bg-secondary-container group-hover:text-on-secondary-container transition-colors">
+<span class="material-symbols-outlined">memory</span>
+</div>
+<h4 class="font-button text-button text-on-background mb-xs">Tech Innovations</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Recent breakthroughs in AI and computing.</p>
+</div>
+<!-- Trending Card 3 -->
+<div class="snap-start shrink-0 w-[240px] bg-surface-container-lowest rounded-xl p-md border border-outline-variant/20 shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)] hover:-translate-y-1 hover:shadow-[0_15px_30px_-5px_rgba(0,35,102,0.12)] transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center mb-md text-secondary group-hover:bg-secondary-container group-hover:text-on-secondary-container transition-colors">
+<span class="material-symbols-outlined">movie</span>
+</div>
+<h4 class="font-button text-button text-on-background mb-xs">Classic Cinema</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Trivia from the golden age of Hollywood.</p>
+</div>
+</div>
+</section>
+<!-- All Categories Grid -->
+<section>
+<h3 class="font-h3 text-h3 text-on-background mb-md">All Categories</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+<!-- Category Item -->
+<div class="bg-surface-container-lowest rounded-xl p-sm flex items-center gap-md border border-outline-variant/20 shadow-[0_5px_15px_-5px_rgba(0,35,102,0.05)] hover:border-secondary hover:bg-surface-container-low transition-all cursor-pointer group">
+<div class="w-14 h-14 rounded-lg bg-[#eaf1ff] flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-[28px]">science</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-button text-button text-on-background">Science</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Physics, Biology, Chemistry</p>
+</div>
+<div class="px-sm py-xs bg-surface-container rounded-full font-label-caps text-label-caps text-secondary shrink-0">
+                        124 Quizzes
+                    </div>
+</div>
+<!-- Category Item -->
+<div class="bg-surface-container-lowest rounded-xl p-sm flex items-center gap-md border border-outline-variant/20 shadow-[0_5px_15px_-5px_rgba(0,35,102,0.05)] hover:border-secondary hover:bg-surface-container-low transition-all cursor-pointer group">
+<div class="w-14 h-14 rounded-lg bg-[#fff0e6] flex items-center justify-center text-[#d97706] shrink-0">
+<span class="material-symbols-outlined text-[28px]">history_edu</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-button text-button text-on-background">History</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Ancient to Modern Era</p>
+</div>
+<div class="px-sm py-xs bg-surface-container rounded-full font-label-caps text-label-caps text-secondary shrink-0">
+                        89 Quizzes
+                    </div>
+</div>
+<!-- Category Item -->
+<div class="bg-surface-container-lowest rounded-xl p-sm flex items-center gap-md border border-outline-variant/20 shadow-[0_5px_15px_-5px_rgba(0,35,102,0.05)] hover:border-secondary hover:bg-surface-container-low transition-all cursor-pointer group">
+<div class="w-14 h-14 rounded-lg bg-[#e6f4ea] flex items-center justify-center text-[#16a34a] shrink-0">
+<span class="material-symbols-outlined text-[28px]">devices</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-button text-button text-on-background">Technology</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Computers, Internet, Gadgets</p>
+</div>
+<div class="px-sm py-xs bg-surface-container rounded-full font-label-caps text-label-caps text-secondary shrink-0">
+                        156 Quizzes
+                    </div>
+</div>
+<!-- Category Item -->
+<div class="bg-surface-container-lowest rounded-xl p-sm flex items-center gap-md border border-outline-variant/20 shadow-[0_5px_15px_-5px_rgba(0,35,102,0.05)] hover:border-secondary hover:bg-surface-container-low transition-all cursor-pointer group">
+<div class="w-14 h-14 rounded-lg bg-[#fce7f3] flex items-center justify-center text-[#db2777] shrink-0">
+<span class="material-symbols-outlined text-[28px]">palette</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-button text-button text-on-background">Art</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Painting, Sculpture, Design</p>
+</div>
+<div class="px-sm py-xs bg-surface-container rounded-full font-label-caps text-label-caps text-secondary shrink-0">
+                        67 Quizzes
+                    </div>
+</div>
+<!-- Category Item -->
+<div class="bg-surface-container-lowest rounded-xl p-sm flex items-center gap-md border border-outline-variant/20 shadow-[0_5px_15px_-5px_rgba(0,35,102,0.05)] hover:border-secondary hover:bg-surface-container-low transition-all cursor-pointer group">
+<div class="w-14 h-14 rounded-lg bg-[#fee2e2] flex items-center justify-center text-[#dc2626] shrink-0">
+<span class="material-symbols-outlined text-[28px]">sports_soccer</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-button text-button text-on-background">Sports</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Athletics, Teams, Rules</p>
+</div>
+<div class="px-sm py-xs bg-surface-container rounded-full font-label-caps text-label-caps text-secondary shrink-0">
+                        112 Quizzes
+                    </div>
+</div>
+<!-- Category Item -->
+<div class="bg-surface-container-lowest rounded-xl p-sm flex items-center gap-md border border-outline-variant/20 shadow-[0_5px_15px_-5px_rgba(0,35,102,0.05)] hover:border-secondary hover:bg-surface-container-low transition-all cursor-pointer group">
+<div class="w-14 h-14 rounded-lg bg-[#fef3c7] flex items-center justify-center text-[#d97706] shrink-0">
+<span class="material-symbols-outlined text-[28px]">translate</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-button text-button text-on-background">Languages</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Vocabulary, Grammar, Culture</p>
+</div>
+<div class="px-sm py-xs bg-surface-container rounded-full font-label-caps text-label-caps text-secondary shrink-0">
+                        95 Quizzes
+                    </div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 rounded-t-xl bg-surface-container-lowest md:hidden" style="box-shadow: 0 -4px 20px -5px rgba(0,35,102,0.05);">
+<div class="flex justify-around items-center h-20 px-sm w-full max-w-container-max mx-auto">
+<button class="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150 rounded-xl">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150 rounded-xl">
+<span class="material-symbols-outlined mb-1">leaderboard</span>
+<span class="font-label-caps text-label-caps">Leagues</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+<span class="font-label-caps text-label-caps">Topics</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150 rounded-xl">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</button>
+</div>
+</nav>
+<style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</body></html>
+
+<!--Flashcards Study Mode-- >
+< !DOCTYPE html >
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuizMaster - Flashcards</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "on-tertiary-container": "#8b909a",
+                        "on-secondary-fixed-variant": "#004395",
+                        "inverse-surface": "#213145",
+                        "secondary-container": "#2170e4",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-fixed": "#001a42",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#00174a",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-tint": "#435b9f",
+                        "on-surface-variant": "#444650",
+                        "surface-container": "#e5eeff",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "secondary": "#0058be",
+                        "surface-variant": "#d3e4fe",
+                        "outline-variant": "#c5c6d2",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#171c23",
+                        "on-tertiary-fixed-variant": "#424750",
+                        "outline": "#757682",
+                        "on-background": "#0b1c30",
+                        "on-surface": "#0b1c30",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#2a4386",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#758dd5",
+                        "tertiary-fixed": "#dee2ed",
+                        "background": "#f8f9ff",
+                        "on-primary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#b3c5ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-fixed": "#d8e2ff",
+                        "tertiary-fixed-dim": "#c2c6d1",
+                        "primary-container": "#002366",
+                        "tertiary": "#10151c",
+                        "primary": "#00113a",
+                        "tertiary-container": "#242931",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-container": "#fefcff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "lg": "48px",
+                        "md": "24px",
+                        "container-max": "1200px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "xl": "80px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Inter"],
+                        "button": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"],
+                        "h1": ["Inter"],
+                        "h3": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "button": ["16px", { "lineHeight": "1.0", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 35, 102, 0.08);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen pt-[80px] pb-[100px] md:pb-0 flex flex-col items-center">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest shadow-md shadow-secondary/5 h-16 px-md w-full flex justify-between items-center">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A close up portrait of a young professional user avatar in a modern tech setting. The lighting is bright and clean, typical of a professional SaaS platform profile picture. The mood is friendly and approachable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJjmsUAnMoiY1vSHxalSYKq-ykYgsbAdPbtyE8lgrSjt1xk2LP4aNYiuqTJRAYDrsYLg2VkiYXi7FNGdf5_qooirs_N_El4RDmfXFLaEMv0hneQebkLZYOYhwwwHDmXaTwKCsyBEdwntWoEiN3IuuLFUjcCM0mh_ZCVHxKF2rtBGBBVL08i-K6gFtKcCXHq5Avja9t9Hfsu9qfgGAX8o7PtZ6zhOaCIHeJHmEqBMGi2irXy6cuhN5YwlyR0EK1_KyDqxbrcmhj5n-p"/>
+</div>
+<span class="font-h3 text-h3 font-bold text-secondary tracking-tight">QuizMaster</span>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-secondary hover:bg-secondary-container/10 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-[800px] px-gutter flex-1 flex flex-col justify-center items-center gap-lg mt-xl">
+<!-- Progress Indicator -->
+<div class="w-full flex flex-col gap-xs items-center max-w-[400px]">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Card 5 of 20</span>
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary to-primary rounded-full" style="width: 25%;"></div>
+</div>
+</div>
+<!-- Flashcard -->
+<div class="w-full aspect-[4/3] md:aspect-video bg-surface-container-lowest rounded-[16px] card-shadow border border-outline-variant/20 flex flex-col items-center justify-center p-lg relative cursor-pointer group transition-all hover:shadow-[0_15px_30px_-5px_rgba(0,35,102,0.12)] hover:-translate-y-1">
+<div class="absolute top-sm right-sm">
+<span class="inline-flex items-center justify-center bg-surface-container px-3 py-1 rounded-full font-label-caps text-label-caps text-on-surface-variant">
+                    Biology
+                </span>
+</div>
+<h2 class="font-h2 text-h2 text-center text-primary mb-md max-w-[80%]">What is Photosynthesis?</h2>
+<div class="absolute bottom-md text-on-surface-variant flex items-center gap-xs opacity-70 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">flip_camera_android</span>
+<span class="font-body-md text-body-md">Tap to flip</span>
+</div>
+</div>
+<!-- Controls -->
+<div class="w-full flex justify-between items-center max-w-[400px]">
+<button class="bg-[#F0F4FF] text-secondary font-button text-button px-sm py-sm rounded-[12px] flex items-center gap-xs hover:bg-[#E0E8FF] transition-colors active:scale-95">
+<span class="material-symbols-outlined">arrow_back</span>
+                Previous
+            </button>
+<button class="bg-secondary text-on-secondary font-button text-button px-sm py-sm rounded-[12px] flex items-center gap-xs hover:bg-secondary/90 transition-colors active:scale-95 shadow-md shadow-secondary/20">
+                Next
+                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 rounded-t-xl bg-surface-container-lowest border-t border-outline-variant/20 shadow-[0_-4px_20px_-5px_rgba(0,35,102,0.05)] shadow-lg flex justify-around items-center h-20 px-sm w-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-label-caps mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-caps text-label-caps mt-1">Leagues</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-caps text-label-caps mt-1">Topics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</a>
+</nav>
+</body></html>
+
+<!--Quiz Results & Review-- >
+< !DOCTYPE html >
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quiz Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "on-tertiary-container": "#8b909a",
+                        "on-secondary-fixed-variant": "#004395",
+                        "inverse-surface": "#213145",
+                        "secondary-container": "#2170e4",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-fixed": "#001a42",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#00174a",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-tint": "#435b9f",
+                        "on-surface-variant": "#444650",
+                        "surface-container": "#e5eeff",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "secondary": "#0058be",
+                        "surface-variant": "#d3e4fe",
+                        "outline-variant": "#c5c6d2",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#171c23",
+                        "on-tertiary-fixed-variant": "#424750",
+                        "outline": "#757682",
+                        "on-background": "#0b1c30",
+                        "on-surface": "#0b1c30",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#2a4386",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#758dd5",
+                        "tertiary-fixed": "#dee2ed",
+                        "background": "#f8f9ff",
+                        "on-primary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#b3c5ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-fixed": "#d8e2ff",
+                        "tertiary-fixed-dim": "#c2c6d1",
+                        "primary-container": "#002366",
+                        "tertiary": "#10151c",
+                        "primary": "#00113a",
+                        "tertiary-container": "#242931",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-container": "#fefcff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "lg": "48px",
+                        "md": "24px",
+                        "container-max": "1200px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "xl": "80px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Inter"],
+                        "button": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"],
+                        "h1": ["Inter"],
+                        "h3": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "button": ["16px", { "lineHeight": "1.0", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .ambient-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 35, 102, 0.08);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pt-16 pb-20 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest fixed top-0 left-0 w-full z-50 shadow-md shadow-secondary/5 flex justify-between items-center h-16 px-md w-full">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</div>
+<h1 class="font-h3 text-h3 font-bold text-secondary tracking-tight">QuizMaster</h1>
+<div class="flex items-center gap-xs text-secondary hover:bg-secondary-container/10 transition-colors p-unit rounded-full cursor-pointer active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="max-w-[800px] mx-auto px-md md:px-lg py-lg space-y-lg">
+<!-- Results Hero Card -->
+<section class="bg-surface-container-lowest rounded-[24px] ambient-shadow p-lg flex flex-col items-center justify-center text-center space-y-md border border-outline-variant/30">
+<div class="space-y-xs">
+<h2 class="font-h3 text-h3 text-on-surface">Astrophysics 101</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Quiz Completed Successfully!</p>
+</div>
+<!-- Score Circular Visualization (CSS implementation) -->
+<div class="relative w-40 h-40 flex items-center justify-center rounded-full bg-surface-container-high">
+<div class="absolute inset-0 rounded-full border-8 border-surface-container"></div>
+<div class="absolute inset-0 rounded-full border-8 border-secondary border-t-transparent border-r-transparent transform -rotate-45"></div>
+<div class="flex flex-col items-center">
+<span class="font-h1 text-h1 text-secondary">85%</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Score</span>
+</div>
+</div>
+<!-- Quick Stats Bento -->
+<div class="grid grid-cols-3 gap-md w-full pt-sm">
+<div class="bg-surface-container-low rounded-xl p-sm flex flex-col items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-secondary mb-unit">timer</span>
+<span class="font-h3 text-h3 text-on-surface">12:45</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Time Spent</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-sm flex flex-col items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-secondary mb-unit">check_circle</span>
+<span class="font-h3 text-h3 text-on-surface">17/20</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Correct</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-sm flex flex-col items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-secondary mb-unit">emoji_events</span>
+<span class="font-h3 text-h3 text-on-surface">+850</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Points Earned</span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row gap-sm w-full pt-md justify-center">
+<button class="bg-secondary text-on-secondary font-button text-button rounded-xl py-sm px-lg hover:shadow-lg hover:-translate-y-0.5 transition-all active:translate-y-0">
+                    Try Again
+                </button>
+<button class="bg-surface-container-high text-secondary font-button text-button rounded-xl py-sm px-lg hover:bg-surface-container-highest transition-all">
+                    Back to Topics
+                </button>
+</div>
+</section>
+<!-- Question Review List -->
+<section class="space-y-md">
+<h3 class="font-h3 text-h3 text-on-surface">Review Answers</h3>
+<div class="space-y-sm">
+<!-- Correct Question Card -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant/30 ambient-shadow">
+<div class="flex items-start gap-sm">
+<div class="mt-1">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-1 space-y-sm">
+<p class="font-body-lg text-body-lg text-on-surface">What is the closest star to Earth?</p>
+<div class="bg-surface-container-low rounded-lg p-sm border-l-4 border-secondary">
+<p class="font-body-md text-body-md text-on-surface-variant"><span class="font-bold text-on-surface">Your Answer:</span> The Sun</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Incorrect Question Card -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-error-container ambient-shadow">
+<div class="flex items-start gap-sm">
+<div class="mt-1">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">cancel</span>
+</div>
+<div class="flex-1 space-y-sm">
+<p class="font-body-lg text-body-lg text-on-surface">Which planet is known as the Red Planet?</p>
+<div class="bg-error-container/20 rounded-lg p-sm border-l-4 border-error">
+<p class="font-body-md text-body-md text-on-surface-variant"><span class="font-bold text-on-surface">Your Answer:</span> Venus</p>
+<p class="font-body-md text-body-md text-error mt-unit"><span class="font-bold">Correct Answer:</span> Mars</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Correct Question Card -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant/30 ambient-shadow">
+<div class="flex items-start gap-sm">
+<div class="mt-1">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-1 space-y-sm">
+<p class="font-body-lg text-body-lg text-on-surface">What force keeps planets in orbit around the Sun?</p>
+<div class="bg-surface-container-low rounded-lg p-sm border-l-4 border-secondary">
+<p class="font-body-md text-body-md text-on-surface-variant"><span class="font-bold text-on-surface">Your Answer:</span> Gravity</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface-container-lowest fixed bottom-0 left-0 w-full z-50 rounded-t-xl border-t border-outline-variant/20 shadow-[0_-4px_20px_-5px_rgba(0,35,102,0.05)] flex justify-around items-center h-20 px-sm w-full">
+<div class="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150 cursor-pointer">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-label-caps mt-unit">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150 cursor-pointer">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-caps text-label-caps mt-unit">Leagues</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl py-xs px-md active:scale-90 duration-150 cursor-pointer">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-caps text-label-caps mt-unit">Topics</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150 cursor-pointer">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps mt-unit">Profile</span>
+</div>
+</nav>
+</body></html>
+
+<!--Design System-- >
+< !DOCTYPE html >
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuizMaster - Active Quiz</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error-container": "#ffdad6",
+                      "on-tertiary": "#ffffff",
+                      "surface-dim": "#cbdbf5",
+                      "on-tertiary-container": "#8b909a",
+                      "on-secondary-fixed-variant": "#004395",
+                      "inverse-surface": "#213145",
+                      "secondary-container": "#2170e4",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-secondary-fixed": "#001a42",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed": "#00174a",
+                      "secondary-fixed-dim": "#adc6ff",
+                      "primary-fixed": "#dbe1ff",
+                      "surface-tint": "#435b9f",
+                      "on-surface-variant": "#444650",
+                      "surface-container": "#e5eeff",
+                      "surface-bright": "#f8f9ff",
+                      "surface-container-high": "#dce9ff",
+                      "secondary": "#0058be",
+                      "surface-variant": "#d3e4fe",
+                      "outline-variant": "#c5c6d2",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed": "#171c23",
+                      "on-tertiary-fixed-variant": "#424750",
+                      "outline": "#757682",
+                      "on-background": "#0b1c30",
+                      "on-surface": "#0b1c30",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed-variant": "#2a4386",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#758dd5",
+                      "tertiary-fixed": "#dee2ed",
+                      "background": "#f8f9ff",
+                      "on-primary": "#ffffff",
+                      "surface": "#f8f9ff",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#b3c5ff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "secondary-fixed": "#d8e2ff",
+                      "tertiary-fixed-dim": "#c2c6d1",
+                      "primary-container": "#002366",
+                      "tertiary": "#10151c",
+                      "primary": "#00113a",
+                      "tertiary-container": "#242931",
+                      "surface-container-low": "#eff4ff",
+                      "on-secondary-container": "#fefcff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "lg": "48px",
+                      "md": "24px",
+                      "container-max": "1200px",
+                      "sm": "16px",
+                      "xs": "8px",
+                      "xl": "80px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "h2": [
+                              "Inter"
+                      ],
+                      "button": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "h1": [
+                              "Inter"
+                      ],
+                      "h3": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "h2": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "button": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "h1": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "h3": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col items-center">
+<!-- Top App Bar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-lowest text-secondary dark:text-secondary-fixed-dim fixed top-0 left-0 w-full z-50 shadow-md shadow-secondary/5 flex justify-between items-center h-16 px-md w-full">
+<div class="flex items-center gap-xs cursor-pointer hover:bg-secondary-container/10 transition-colors active:scale-95 duration-200 p-2 rounded-full">
+<img alt="User profile avatar" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A small circular avatar showing a young man with glasses and a slight smile, set against a neutral gray background. The lighting is soft and professional, highlighting his features clearly. The avatar is framed by a thin, subtle border, integrating perfectly into a modern, airy light-mode UI design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC95P-BVJEKDlOgitUDqu4nBDkcT3U0Hn7FU7IV6AfLLfrnZ678e4zFpTv0IX03aeyD5ou8QOnwn-ALnkp_HcQboOcHPTCdFzJERchTVxslv7DW1i6A7BqXSBxdIr_cxUX0RIkcu43nnEv9v1h0-rLdz_1dkTxzxeownah8oVk3USmZwbass24giu36uTIv7-APb5J_i1__JP_696z7h5e3j1v4VSHBDB-gNVroJ3GzXCq9TZACECSYYxs7NJ9h4p4yA6J3zhtEWqAx"/>
+</div>
+<h1 class="font-h3 text-h3 font-bold text-secondary dark:text-secondary-fixed-dim tracking-tight">QuizMaster</h1>
+<button class="flex items-center justify-center p-2 rounded-full text-secondary dark:text-secondary-fixed-dim hover:bg-secondary-container/10 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</header>
+<!-- Main Quiz Canvas -->
+<main class="w-full max-w-[800px] mt-24 mb-32 px-md md:px-lg flex flex-col">
+<!-- Progress Header -->
+<div class="flex items-center justify-between mb-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Question 4 of 10</span>
+<div class="flex items-center gap-2 bg-surface-container-highest px-3 py-1 rounded-full text-secondary font-button text-button">
+<span class="material-symbols-outlined text-[18px]">timer</span>
+<span>01:45</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-2 bg-surface-variant rounded-full mb-lg overflow-hidden relative">
+<div class="absolute top-0 left-0 h-full bg-gradient-to-r from-secondary to-primary rounded-full" style="width: 40%;"></div>
+</div>
+<!-- Question Container -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)] mb-lg flex flex-col gap-sm">
+<div class="flex gap-2 mb-2">
+<span class="bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps px-3 py-1 rounded-full">Science</span>
+<span class="bg-surface-container-low text-on-surface-variant font-label-caps text-label-caps px-3 py-1 rounded-full">Medium</span>
+</div>
+<h2 class="font-h2 text-h2 text-on-surface leading-tight">What is the primary function of the mitochondria in a cellular structure?</h2>
+</div>
+<!-- Answer Choices -->
+<div class="flex flex-col gap-sm">
+<!-- Unselected Option -->
+<label class="group relative cursor-pointer">
+<input class="peer sr-only" name="answer" type="radio" value="A"/>
+<div class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-md flex items-center gap-md transition-all duration-200 group-hover:shadow-[0_8px_20px_-4px_rgba(0,35,102,0.06)] group-hover:-translate-y-0.5 peer-checked:border-2 peer-checked:border-secondary peer-checked:bg-surface-container peer-checked:shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)]">
+<div class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant font-button text-button group-hover:border-secondary group-hover:text-secondary peer-checked:bg-secondary peer-checked:text-on-secondary peer-checked:border-secondary transition-colors">
+                        A
+                    </div>
+<span class="font-body-lg text-body-lg text-on-surface flex-1">DNA storage and replication</span>
+</div>
+</label>
+<!-- Selected Option (Active State Demonstration) -->
+<label class="group relative cursor-pointer">
+<input checked="" class="peer sr-only" name="answer" type="radio" value="B"/>
+<div class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-md flex items-center gap-md transition-all duration-200 group-hover:shadow-[0_8px_20px_-4px_rgba(0,35,102,0.06)] group-hover:-translate-y-0.5 peer-checked:border-2 peer-checked:border-secondary peer-checked:bg-surface-container peer-checked:shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)]">
+<div class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant font-button text-button group-hover:border-secondary group-hover:text-secondary peer-checked:bg-secondary peer-checked:text-on-secondary peer-checked:border-secondary transition-colors">
+                        B
+                    </div>
+<span class="font-body-lg text-body-lg text-on-surface flex-1">Energy production through ATP synthesis</span>
+</div>
+</label>
+<!-- Unselected Option -->
+<label class="group relative cursor-pointer">
+<input class="peer sr-only" name="answer" type="radio" value="C"/>
+<div class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-md flex items-center gap-md transition-all duration-200 group-hover:shadow-[0_8px_20px_-4px_rgba(0,35,102,0.06)] group-hover:-translate-y-0.5 peer-checked:border-2 peer-checked:border-secondary peer-checked:bg-surface-container peer-checked:shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)]">
+<div class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant font-button text-button group-hover:border-secondary group-hover:text-secondary peer-checked:bg-secondary peer-checked:text-on-secondary peer-checked:border-secondary transition-colors">
+                        C
+                    </div>
+<span class="font-body-lg text-body-lg text-on-surface flex-1">Protein synthesis and translation</span>
+</div>
+</label>
+<!-- Unselected Option -->
+<label class="group relative cursor-pointer">
+<input class="peer sr-only" name="answer" type="radio" value="D"/>
+<div class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-md flex items-center gap-md transition-all duration-200 group-hover:shadow-[0_8px_20px_-4px_rgba(0,35,102,0.06)] group-hover:-translate-y-0.5 peer-checked:border-2 peer-checked:border-secondary peer-checked:bg-surface-container peer-checked:shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)]">
+<div class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant font-button text-button group-hover:border-secondary group-hover:text-secondary peer-checked:bg-secondary peer-checked:text-on-secondary peer-checked:border-secondary transition-colors">
+                        D
+                    </div>
+<span class="font-body-lg text-body-lg text-on-surface flex-1">Waste management and cellular digestion</span>
+</div>
+</label>
+</div>
+<!-- Action Area -->
+<div class="mt-lg flex justify-end">
+<button class="bg-secondary text-on-secondary font-button text-button px-8 py-4 rounded-xl shadow-[0_8px_16px_-4px_rgba(0,88,190,0.3)] hover:shadow-[0_12px_24px_-6px_rgba(0,88,190,0.4)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-200 flex items-center gap-2">
+                Submit Answer
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 600;">arrow_forward</span>
+</button>
+</div>
+</main>
+<!-- Bottom Nav Bar (Suppressed for focused task, but included per prompt requirements if considered a top-level dest. Given it's an "active quiz taking screen", it's task-focused, so nav should logically be suppressed per rules. However, I will follow the explicit JSON mapping rule if forced, but the logic says "Task-Focused: Any sub-page featuring a 'Close' or 'Back' action that implies a temporary departure from the main navigation flow. Suppress navigation." I will omit BottomNavBar for the focused quiz view to follow the Semantic Shell Mandate strictly.) -->
+<!-- Navigation Suppressed: Linear/Task-Focused state -->
+</body></html>
+
+<!--Active Quiz Question-- >
+< !DOCTYPE html >
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - QuizMaster</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "background": "#f8f9ff",
+                "surface-container-high": "#dce9ff",
+                "inverse-on-surface": "#eaf1ff",
+                "on-secondary": "#ffffff",
+                "on-primary-fixed-variant": "#2a4386",
+                "tertiary-fixed": "#dee2ed",
+                "surface-container": "#e5eeff",
+                "on-background": "#0b1c30",
+                "surface-bright": "#f8f9ff",
+                "error-container": "#ffdad6",
+                "on-primary-fixed": "#00174a",
+                "primary-container": "#002366",
+                "on-tertiary": "#ffffff",
+                "surface-container-highest": "#d3e4fe",
+                "tertiary": "#10151c",
+                "error": "#ba1a1a",
+                "on-secondary-container": "#fefcff",
+                "surface-container-low": "#eff4ff",
+                "secondary": "#0058be",
+                "on-error-container": "#93000a",
+                "tertiary-fixed-dim": "#c2c6d1",
+                "secondary-fixed-dim": "#adc6ff",
+                "tertiary-container": "#242931",
+                "surface": "#f8f9ff",
+                "outline": "#757682",
+                "on-primary": "#ffffff",
+                "outline-variant": "#c5c6d2",
+                "surface-container-lowest": "#ffffff",
+                "inverse-surface": "#213145",
+                "on-primary-container": "#758dd5",
+                "on-tertiary-fixed": "#171c23",
+                "primary-fixed-dim": "#b3c5ff",
+                "primary-fixed": "#dbe1ff",
+                "on-secondary-fixed": "#001a42",
+                "on-secondary-fixed-variant": "#004395",
+                "on-tertiary-container": "#8b909a",
+                "secondary-fixed": "#d8e2ff",
+                "on-surface": "#0b1c30",
+                "on-tertiary-fixed-variant": "#424750",
+                "inverse-primary": "#b3c5ff",
+                "on-error": "#ffffff",
+                "surface-variant": "#d3e4fe",
+                "primary": "#00113a",
+                "surface-dim": "#cbdbf5",
+                "surface-tint": "#435b9f",
+                "on-surface-variant": "#444650",
+                "secondary-container": "#2170e4"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "xl": "80px",
+                "xs": "8px",
+                "unit": "4px",
+                "md": "24px",
+                "gutter": "24px",
+                "lg": "48px",
+                "container-max": "1200px",
+                "sm": "16px"
+        },
+        "fontFamily": {
+                "label-caps": [
+                        "Inter"
+                ],
+                "h2": [
+                        "Inter"
+                ],
+                "h1": [
+                        "Inter"
+                ],
+                "button": [
+                        "Inter"
+                ],
+                "h3": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "1.0",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "h2": [
+                        "32px",
+                        {
+                                "lineHeight": "1.3",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "h1": [
+                        "48px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "button": [
+                        "16px",
+                        {
+                                "lineHeight": "1.0",
+                                "fontWeight": "600"
+                        }
+                ],
+                "h3": [
+                        "24px",
+                        {
+                                "lineHeight": "1.4",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+  body {
+    background-color: theme('colors.background');
+    color: theme('colors.on-background');
+  }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md antialiased min-h-screen pb-24 md:pb-0 pt-16">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-lowest fixed top-0 left-0 w-full z-50 shadow-md shadow-secondary/5 flex justify-between items-center h-16 px-md w-full">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest flex items-center justify-center">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A clean, high-quality headshot of a user. The lighting is soft and flattering, typical of a professional but approachable avatar. The background is subtle and out of focus. The overall mood is friendly and modern, fitting seamlessly into a premium app interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa9j-7y78Uy1XGLLupf4JIrhZ7CfVWe0why3ytoTomWFPdxFXbiwgMpx_5u3Aqt8szQtZb2gGbQf0nLw9EofLxM4T0lpo7tGDbJ0Pw6DaxzUknKrJNM4URgROUEeZ6Bfz1v-kuhG8YO0TwsdmTECzz4Hrcde-DDem33Y_guYMeJ7oweZ36DHKmEymvaX_5WBzenAD1tUBdgtkeK-EZM8hGTt4xsHQdhAsT5Aoc9tAwx1GFKq6mnu2KdbWDQ1kHpbAqNBpaNe1G-TZz"/>
+</div>
+</div>
+<div class="font-h3 text-h3 font-bold text-secondary dark:text-secondary-fixed-dim tracking-tight">
+    QuizMaster
+  </div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:bg-secondary-container/10 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="max-w-[800px] mx-auto px-md py-lg md:py-xl space-y-md">
+<div class="mb-lg">
+<h1 class="font-h2 text-h2 text-on-background mb-unit">Settings</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your account preferences and app settings.</p>
+</div>
+<div class="bg-surface-container-lowest rounded-[24px] shadow-[0_10px_25px_-5px_rgba(0,35,102,0.08)] overflow-hidden">
+<div class="flex items-center justify-between p-md border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-background">Edit Profile</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Update your personal details</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-md border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-background">Notification Preferences</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Control alerts and updates</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-md border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined">lock</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-background">Privacy &amp; Security</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your data and security</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-md border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined">language</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-background">Language</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Vietnamese</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-md border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined">dark_mode</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-background">Dark Mode</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Toggle dark theme</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-md hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined">help</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-background">Help &amp; Support</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Get assistance and read FAQs</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+</div>
+<div class="pt-md pb-xl md:pb-0">
+<button class="w-full bg-[#F0F4FF] text-secondary font-button text-button py-sm px-md rounded-[12px] flex items-center justify-center gap-xs hover:bg-surface-container-highest transition-colors active:scale-[0.98] duration-150">
+<span class="material-symbols-outlined">logout</span>
+      Logout
+    </button>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface-container-lowest dark:bg-surface-container-lowest fixed bottom-0 left-0 w-full z-50 rounded-t-xl shadow-lg border-t border-outline-variant/20 shadow-[0_-4px_20px_-5px_rgba(0,35,102,0.05)] flex justify-around items-center h-20 px-sm w-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps mt-unit">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-label-caps text-label-caps mt-unit">Leagues</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-tertiary-container py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-label-caps text-label-caps mt-unit">Topics</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary-container text-on-secondary-container dark:text-on-secondary-container rounded-xl py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person" data-weight="fill" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-caps text-label-caps mt-unit">Profile</span>
+</a>
+</nav>
+</body></html>
+
+<!--Settings & Preferences-- >
+< !DOCTYPE html >
+
+    <html class="light" lang="en"><head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>QuizMaster - Mobile Dashboard</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com" rel="preconnect" />
+        <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+            theme: {
+                extend: {
+                "colors": {
+                "on-tertiary": "#ffffff",
+            "error-container": "#ffdad6",
+            "secondary-container": "#2170e4",
+            "on-secondary-fixed-variant": "#004395",
+            "on-tertiary-container": "#8b909a",
+            "inverse-surface": "#213145",
+            "surface-dim": "#cbdbf5",
+            "primary-fixed": "#dbe1ff",
+            "secondary-fixed-dim": "#adc6ff",
+            "on-secondary": "#ffffff",
+            "on-primary-fixed": "#00174a",
+            "on-secondary-fixed": "#001a42",
+            "surface-container-highest": "#d3e4fe",
+            "surface-tint": "#435b9f",
+            "surface-container-high": "#dce9ff",
+            "secondary": "#0058be",
+            "surface-bright": "#f8f9ff",
+            "surface-container": "#e5eeff",
+            "on-surface-variant": "#444650",
+            "error": "#ba1a1a",
+            "surface-variant": "#d3e4fe",
+            "outline-variant": "#c5c6d2",
+            "on-tertiary-fixed": "#171c23",
+            "outline": "#757682",
+            "on-background": "#0b1c30",
+            "on-tertiary-fixed-variant": "#424750",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed-variant": "#2a4386",
+            "on-error": "#ffffff",
+            "on-surface": "#0b1c30",
+            "tertiary-fixed": "#dee2ed",
+            "background": "#f8f9ff",
+            "on-primary-container": "#758dd5",
+            "on-primary": "#ffffff",
+            "inverse-on-surface": "#eaf1ff",
+            "inverse-primary": "#b3c5ff",
+            "on-error-container": "#93000a",
+            "primary-fixed-dim": "#b3c5ff",
+            "surface": "#f8f9ff",
+            "primary-container": "#002366",
+            "tertiary-fixed-dim": "#c2c6d1",
+            "secondary-fixed": "#d8e2ff",
+            "tertiary": "#10151c",
+            "tertiary-container": "#242931",
+            "primary": "#00113a",
+            "on-secondary-container": "#fefcff",
+            "surface-container-low": "#eff4ff"
+                    },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+                    },
+            "spacing": {
+                "md": "24px",
+            "container-max": "1200px",
+            "gutter": "24px",
+            "lg": "48px",
+            "unit": "4px",
+            "xl": "80px",
+            "sm": "16px",
+            "xs": "8px"
+                    },
+            "fontFamily": {
+                "h1": ["Inter"],
+            "h3": ["Inter"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "button": ["Inter"],
+            "label-caps": ["Inter"],
+            "h2": ["Inter"]
+                    },
+            "fontSize": {
+                "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "button": ["16px", {"lineHeight": "1.0", "fontWeight": "600"}],
+            "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+        </script>
+        <style>
+            .material-symbols-outlined {
+                font - variation - settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+            .fill-icon {
+                font - variation - settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+            /* Custom Shadows for deep, soft elevation */
+            .shadow-ambient {
+                box - shadow: 0 10px 25px -5px rgba(0, 35, 102, 0.08);
+        }
+            .shadow-hover {
+                box - shadow: 0 15px 30px -5px rgba(0, 35, 102, 0.12);
+        }
+        </style>
+        <style>
+            body {
+                min - height: max(884px, 100dvh);
+    }
+        </style>
+    </head>
+        <body class="bg-background text-on-surface font-body-md min-h-screen pt-16 pb-24 md:pb-0 overflow-x-hidden">
+            <!-- TopAppBar -->
+            <header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest shadow-md shadow-secondary/5 flex justify-between items-center h-16 px-md md:hidden">
+                <div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container border border-outline-variant/20 flex-shrink-0 cursor-pointer active:scale-95 duration-200">
+                    <img alt="User Profile" class="w-full h-full object-cover" data-alt="A close-up profile portrait of a confident young professional with a warm smile. The image has a bright, modern corporate aesthetic with soft white lighting and a clean, unobtrusive background. The overall tone is welcoming and authoritative, fitting perfectly into a premium SaaS dashboard UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFFG6CKDAeaJ3CwYAnc3htisHHd4FjWevj0CFG-2OJHgMLpBJ9gcQa9C8UapDEE0mRkrHkqlGStYmPmq0nZU48uWljDDR9pp9AcGHP19xR1Om4UDhsDX0rAO3kXVc4nJn_CAhQWpzUdx6F2CVb7l6EJTfKU6uj1TBAE6ZAAAJkjpgNRJVHiF6Czsk7E_jVHNhv0CXWa9I3U0bQKASLl1f9999tytfkhY_jvSViirTetihumzJNJ3psja4lnsHC-UrooVSppCl-NIXz" />
+                </div>
+                <h1 class="font-h3 text-h3 font-bold text-secondary tracking-tight">QuizMaster</h1>
+                <button aria-label="Notifications" class="w-10 h-10 flex items-center justify-center text-secondary rounded-full hover:bg-secondary-container/10 transition-colors active:scale-95 duration-200">
+                    <span class="material-symbols-outlined text-[24px]">notifications</span>
+                </button>
+            </header>
+            <!-- Desktop Navigation (Hidden on mobile) -->
+            <nav class="hidden md:flex fixed top-0 left-0 w-full z-50 bg-surface-container-lowest shadow-md shadow-secondary/5 justify-between items-center h-16 px-xl">
+                <div class="flex items-center gap-md">
+                    <h1 class="font-h3 text-h3 font-bold text-secondary tracking-tight mr-lg">QuizMaster</h1>
+                    <a class="font-label-caps text-label-caps text-secondary flex items-center gap-xs px-sm py-xs rounded-full bg-secondary-container/10" href="#">Home</a>
+                    <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-colors px-sm py-xs" href="#">Leagues</a>
+                    <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-colors px-sm py-xs" href="#">Topics</a>
+                </div>
+                <div class="flex items-center gap-md">
+                    <button aria-label="Notifications" class="w-10 h-10 flex items-center justify-center text-secondary rounded-full hover:bg-secondary-container/10 transition-colors active:scale-95 duration-200">
+                        <span class="material-symbols-outlined text-[24px]">notifications</span>
+                    </button>
+                    <div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container border border-outline-variant/20 cursor-pointer">
+                        <img alt="User Profile" class="w-full h-full object-cover" data-alt="A close-up profile portrait of a confident young professional with a warm smile. The image has a bright, modern corporate aesthetic with soft white lighting and a clean, unobtrusive background. The overall tone is welcoming and authoritative, fitting perfectly into a premium SaaS dashboard UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCu8Mxistczos5B3uNPkWsP3PUdL0mVOtMceI6vplg0ol24XmSzQPP8yXR6IJlFrqF17vbh9VVgomLNtH-IdHdejxvXl5KayVyGCKHDt_wOIvup3gRIB3BCesE9_hJXHknGV8s5jPaISSzDoTeEZFAqMgF64gTpm-vVmb6tu9sUzdhf4vgcjpixEXtiifQeVYMJOPRxpiNoHTM85Bqa2Pfqqh9FacpxdPinVg1IGYYVZaB9DJ_L6LSgsTn-HxIIEnN-17Js9EWHIuD" />
+                    </div>
+                </div>
+            </nav>
+            <!-- Main Content Container -->
+            <main class="w-full max-w-[800px] mx-auto px-md md:px-xl md:pt-24 flex flex-col gap-lg">
+                <!-- Hero: Welcome & Progress -->
+                <section class="mt-sm">
+                    <h2 class="font-h2 text-h2 text-primary mb-sm">Welcome back, Alex</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-md">Ready to challenge your mind today?</p>
+                    <div class="bg-surface-container-lowest rounded-xl shadow-ambient p-md flex flex-col gap-md border border-outline-variant/20">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-h3 text-h3 text-primary">Your Progress</h3>
+                            <button class="text-secondary font-button text-button hover:underline">View details</button>
+                        </div>
+                        <div class="grid grid-cols-2 gap-sm">
+                            <div class="bg-surface-container rounded-lg p-sm flex flex-col justify-center items-center gap-xs">
+                                <span class="material-symbols-outlined fill-icon text-secondary text-[32px]">local_fire_department</span>
+                                <span class="font-h3 text-h3 text-primary">5 Days</span>
+                                <span class="font-label-caps text-label-caps text-on-surface-variant">CURRENT STREAK</span>
+                            </div>
+                            <div class="bg-surface-container rounded-lg p-sm flex flex-col justify-center items-center gap-xs">
+                                <span class="material-symbols-outlined fill-icon text-secondary text-[32px]">military_tech</span>
+                                <span class="font-h3 text-h3 text-primary">85%</span>
+                                <span class="font-label-caps text-label-caps text-on-surface-variant">AVERAGE SCORE</span>
+                            </div>
+                        </div>
+                        <div class="mt-xs">
+                            <div class="flex justify-between mb-xs">
+                                <span class="font-label-caps text-label-caps text-on-surface-variant">WEEKLY GOAL</span>
+                                <span class="font-label-caps text-label-caps text-secondary">3/5 Quizzes</span>
+                            </div>
+                            <!-- Progress Bar -->
+                            <div class="h-[8px] bg-surface-container rounded-full overflow-hidden">
+                                <div class="h-full rounded-full bg-gradient-to-r from-[#adc6ff] to-[#0058be]" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Section 1: Leaderboard Preview -->
+                <section>
+                    <div class="flex justify-between items-center mb-sm">
+                        <h3 class="font-h3 text-h3 text-primary">Leaderboard</h3>
+                        <button class="text-secondary font-button text-button hover:underline">Full Standings</button>
+                    </div>
+                    <div class="bg-surface-container-lowest rounded-xl shadow-ambient p-sm border border-outline-variant/20 flex flex-col gap-sm">
+                        <!-- Player 1 -->
+                        <div class="flex items-center gap-sm p-xs rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer">
+                            <div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-button text-button flex-shrink-0">1</div>
+                            <div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container flex-shrink-0">
+                                <img alt="Sarah J." class="w-full h-full object-cover" data-alt="A bright, professional headshot of a smiling woman with dark hair. The aesthetic matches a premium corporate directory or SaaS user profile avatar. Soft, airy lighting against a neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASPfi5x5ZMnJtpVqNuCo4J1MElqR9U0AizACr57G8Vs0acUZVy5U2HwPIPoZ_kdcL2cL33Gj89x7L-uU5ILbGuDADXtxdjdCN8bEXFhADc-KUvCICPZEm0X95Abu48E9CCWvyDmwFCjbcE_n9LRpGf1zlcQggKGLFZfk-aqmOoOBIbrFfBeWDH6-7WnRUGXkkiJmeSyo_2RHxmuk-kBVpWlC0-f8RISFn1v_oeTgjYFyPFGaYvW3SC0d_3S-e74RDxYQlqK49l8JCv" />
+                            </div>
+                            <div class="flex-grow">
+                                <div class="font-body-md text-body-md font-semibold text-primary">Sarah J.</div>
+                            </div>
+                            <div class="font-h3 text-h3 text-secondary">2,450 pts</div>
+                        </div>
+                        <!-- Player 2 -->
+                        <div class="flex items-center gap-sm p-xs rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer bg-surface-container-low border border-secondary/10">
+                            <div class="w-8 h-8 rounded-full bg-outline-variant text-on-surface flex items-center justify-center font-button text-button flex-shrink-0">2</div>
+                            <div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container flex-shrink-0 border-2 border-secondary">
+                                <img alt="Alex (You)" class="w-full h-full object-cover" data-alt="A close-up profile portrait of a confident young professional with a warm smile. The image has a bright, modern corporate aesthetic with soft white lighting and a clean, unobtrusive background. The overall tone is welcoming and authoritative, fitting perfectly into a premium SaaS dashboard UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANP6GwPEyBxhakrtxApTDYKHIJ1OUKkR6cmFeQQHECBYVwyYq_lSLx6g9kgrp4qfFzXDEIRdHEsINOA0AZxdFYU52kcx0b1DUOm4T9EQiTP-np2hQlB_rRS2xFT14zulXNGl5sBMJp1pzGUZsdJ2ij-Az1EjXkyv30SvsdennujDB329RRDOK0-MLi2QeYB3xWi_G3H3TQjuJnLoL8T7441opcmDveQxMr-sDydQYIRr8-0VQ6s_p-In9ynhcdEz1A43ydNK7h5M_h" />
+                            </div>
+                            <div class="flex-grow">
+                                <div class="font-body-md text-body-md font-semibold text-primary">Alex (You)</div>
+                            </div>
+                            <div class="font-h3 text-h3 text-secondary">2,100 pts</div>
+                        </div>
+                        <!-- Player 3 -->
+                        <div class="flex items-center gap-sm p-xs rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer">
+                            <div class="w-8 h-8 rounded-full bg-outline-variant text-on-surface flex items-center justify-center font-button text-button flex-shrink-0">3</div>
+                            <div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container flex-shrink-0">
+                                <img alt="Michael T." class="w-full h-full object-cover" data-alt="A modern corporate portrait of a man with short hair and glasses. The lighting is bright and clean, typical of a high-end application avatar. The background is simple and out of focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASoAuIQCU5ZAt4PxnCa4Guer_UKr7xqJmzC3WsnwuwmC-I9SgMLW6_nq7YLi5n1NogyA0YvOEyqwBVBN2JzCDYnLtjeVZUNQMUmAmaS_3drXgS7xWx6NsBJhjHkQMFnW_v9I6bvNyrmDOfoC30v_YiwsQq9pMLNX6NX_ha3on4RRF4JBdN8d8mt0YIcYlSdz89dWT6bRwRwcpYuscODO582GDmntEWDYnK_hT-tjLmfB3T_5yO6Sbk-JD1vJf9iCnZWJhQZvHw4PJO" />
+                            </div>
+                            <div class="flex-grow">
+                                <div class="font-body-md text-body-md font-semibold text-primary">Michael T.</div>
+                            </div>
+                            <div class="font-h3 text-h3 text-secondary">1,980 pts</div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Section 2: Quiz Categories Grid -->
+                <section class="pb-lg">
+                    <h3 class="font-h3 text-h3 text-primary mb-sm">Quiz Categories</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+                        <!-- Category Card: Technology -->
+                        <div class="bg-surface-container-lowest rounded-xl shadow-ambient p-md border border-outline-variant/20 hover:shadow-hover hover:-translate-y-1 transition-all duration-300 flex flex-col group cursor-pointer">
+                            <div class="flex items-center gap-sm mb-md">
+                                <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+                                    <span class="material-symbols-outlined text-[28px]">devices</span>
+                                </div>
+                                <div class="font-h3 text-h3 text-primary">Technology</div>
+                            </div>
+                            <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-md">Test your knowledge on the latest tech trends and computing history.</p>
+                            <button class="bg-surface-container-lowest border border-secondary text-secondary font-button text-button py-sm px-md rounded-lg w-full group-hover:bg-secondary group-hover:text-on-secondary transition-colors">Start</button>
+                        </div>
+                        <!-- Category Card: Science -->
+                        <div class="bg-surface-container-lowest rounded-xl shadow-ambient p-md border border-outline-variant/20 hover:shadow-hover hover:-translate-y-1 transition-all duration-300 flex flex-col group cursor-pointer">
+                            <div class="flex items-center gap-sm mb-md">
+                                <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+                                    <span class="material-symbols-outlined text-[28px]">science</span>
+                                </div>
+                                <div class="font-h3 text-h3 text-primary">Science</div>
+                            </div>
+                            <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-md">Explore physics, biology, and the wonders of the natural world.</p>
+                            <button class="bg-surface-container-lowest border border-secondary text-secondary font-button text-button py-sm px-md rounded-lg w-full group-hover:bg-secondary group-hover:text-on-secondary transition-colors">Start</button>
+                        </div>
+                        <!-- Category Card: History -->
+                        <div class="bg-surface-container-lowest rounded-xl shadow-ambient p-md border border-outline-variant/20 hover:shadow-hover hover:-translate-y-1 transition-all duration-300 flex flex-col group cursor-pointer">
+                            <div class="flex items-center gap-sm mb-md">
+                                <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+                                    <span class="material-symbols-outlined text-[28px]">account_balance</span>
+                                </div>
+                                <div class="font-h3 text-h3 text-primary">History</div>
+                            </div>
+                            <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-md">Journey through time and uncover facts about past civilizations.</p>
+                            <button class="bg-surface-container-lowest border border-secondary text-secondary font-button text-button py-sm px-md rounded-lg w-full group-hover:bg-secondary group-hover:text-on-secondary transition-colors">Start</button>
+                        </div>
+                        <!-- Category Card: Pop Culture -->
+                        <div class="bg-surface-container-lowest rounded-xl shadow-ambient p-md border border-outline-variant/20 hover:shadow-hover hover:-translate-y-1 transition-all duration-300 flex flex-col group cursor-pointer">
+                            <div class="flex items-center gap-sm mb-md">
+                                <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+                                    <span class="material-symbols-outlined text-[28px]">movie</span>
+                                </div>
+                                <div class="font-h3 text-h3 text-primary">Pop Culture</div>
+                            </div>
+                            <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-md">Movies, music, and celebrity trivia to test your pop culture IQ.</p>
+                            <button class="bg-surface-container-lowest border border-secondary text-secondary font-button text-button py-sm px-md rounded-lg w-full group-hover:bg-secondary group-hover:text-on-secondary transition-colors">Start</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <!-- BottomNavBar (Mobile Only) -->
+            <nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface-container-lowest rounded-t-xl border-t border-outline-variant/20 shadow-[0_-4px_20px_-5px_rgba(0,35,102,0.05)] flex justify-around items-center h-20 px-sm">
+                <a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl py-xs px-md active:scale-90 transition-transform duration-150" href="#">
+                    <span class="material-symbols-outlined fill-icon text-[24px] mb-1">home</span>
+                    <span class="font-label-caps text-label-caps">Home</span>
+                </a>
+                <a class="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150 rounded-xl" href="#">
+                    <span class="material-symbols-outlined text-[24px] mb-1">leaderboard</span>
+                    <span class="font-label-caps text-label-caps">Leagues</span>
+                </a>
+                <a class="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150 rounded-xl" href="#">
+                    <span class="material-symbols-outlined text-[24px] mb-1">grid_view</span>
+                    <span class="font-label-caps text-label-caps">Topics</span>
+                </a>
+                <a class="flex flex-col items-center justify-center text-on-surface-variant py-xs px-md hover:bg-surface-container-low transition-all active:scale-90 duration-150 rounded-xl" href="#">
+                    <span class="material-symbols-outlined text-[24px] mb-1">person</span>
+                    <span class="font-label-caps text-label-caps">Profile</span>
+                </a>
+            </nav>
+        </body></html>
