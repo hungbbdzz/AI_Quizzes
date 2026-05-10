@@ -50,31 +50,25 @@ function ExplainBox({ answerId, token }) {
   if (!shown) {
     return (
       <button
-        className="btn btn-sm"
+        className="mt-sm bg-primary-container/20 text-on-primary-container border border-primary-container/30 px-sm py-xs rounded-lg font-button text-sm hover:bg-primary-container/30 transition-colors flex items-center gap-xs"
         onClick={handleExplain}
         disabled={loading}
-        style={{
-          marginTop: '0.75rem',
-          background: 'rgba(139, 92, 246, 0.1)',
-          color: 'var(--color-primary-hover)',
-          border: '1px solid rgba(139, 92, 246, 0.25)',
-        }}
       >
-        {loading ? <Loader2 size={13} className="animate-spin" /> : <Zap size={13} />}
+        {loading ? <span className="material-symbols-outlined animate-spin text-[16px]">sync</span> : <span className="material-symbols-outlined text-[16px]">bolt</span>}
         Hỏi AI tại sao tôi sai?
       </button>
     );
   }
 
   return (
-    <div className="explain-box">
-      <div className="explain-box-header">
-        <Zap size={16} /> AI giải thích
+    <div className="mt-sm bg-surface-container rounded-xl p-sm border border-outline-variant/30">
+      <div className="flex items-center gap-xs text-secondary font-button text-sm mb-xs">
+        <span className="material-symbols-outlined text-[18px]">auto_awesome</span> AI giải thích
       </div>
       {error ? (
-        <p style={{ color: 'var(--color-danger)', fontSize: '0.85rem' }}>{error}</p>
+        <p className="text-error text-sm">{error}</p>
       ) : (
-        <div className="explain-box-content">{explanation}</div>
+        <div className="text-on-surface-variant text-sm leading-relaxed">{explanation}</div>
       )}
     </div>
   );
@@ -109,7 +103,6 @@ export default function QuizPage() {
 
   useEffect(() => {
     if (isGuest) {
-      // Guest mode: dùng mock quiz data
       const mockQuiz = getGuestQuizById(id);
       if (mockQuiz) {
         setQuestions(mockQuiz.questions || []);
@@ -173,7 +166,6 @@ export default function QuizPage() {
     setSubmitting(true);
     try {
       if (isGuest) {
-        // Guest mode: tính điểm locally
         let correct = 0;
         const results = questions.map((q, i) => {
           const selected = answers[i] ?? null;
@@ -217,22 +209,26 @@ export default function QuizPage() {
     }
   };
 
-  // --- Loading ---
   if (loading) {
     return (
-      <div className="empty-state">
-        <Loader2 size={32} className="animate-spin" style={{ margin: '0 auto 1rem', display: 'block' }} />
-        <p>Đang tải Quiz...</p>
+      <div className="flex justify-center p-xl">
+        <span className="material-symbols-outlined animate-spin text-secondary text-4xl">sync</span>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div style={{ maxWidth: 700, margin: '0 auto' }}>
-        <div className="alert alert-error">{error}</div>
-        <button className="btn btn-ghost" onClick={() => navigate('/')} style={{ marginTop: '1rem' }}>
-          <ArrowLeft size={16} /> Về Dashboard
+      <div className="max-w-2xl mx-auto flex flex-col gap-sm items-center mt-xl">
+        <div className="bg-error-container text-on-error-container p-sm rounded-xl mb-md border border-error/20 flex items-center gap-2">
+          <span className="material-symbols-outlined">error</span>
+          {error}
+        </div>
+        <button 
+          className="bg-surface-container-lowest text-secondary font-button text-button px-md py-sm rounded-full shadow-md border border-outline-variant/20 hover:bg-surface-container-low transition-colors flex items-center"
+          onClick={() => navigate('/')}
+        >
+          <span className="material-symbols-outlined mr-1">arrow_back</span> Về Dashboard
         </button>
       </div>
     );
@@ -248,37 +244,26 @@ export default function QuizPage() {
     const reviewQuestions = questions.map((q, index) => ({ ...q, _index: index }));
 
     return (
-      <div style={{ maxWidth: 700, margin: '0 auto' }} className="animate-fadeIn">
-        <div className="result-card">
-          <Trophy size={36} color="var(--color-warning)" style={{ marginBottom: '1rem' }} />
-          <h2 style={{ marginBottom: '0.5rem' }}>Kết quả của bạn</h2>
-          <p style={{ marginBottom: '2rem' }}>
-            {pct >= 80 ? '🎉 Xuất sắc! Bạn đã nắm vững kiến thức!' : pct >= 50 ? '💪 Tốt! Tiếp tục cố gắng nhé!' : '📚 Hãy ôn tập thêm nhé!'}
-          </p>
-
-          <div className="result-score-ring">
-            <svg width="160" height="160" viewBox="0 0 160 160">
-              <circle cx="80" cy="80" r={radius} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="10" />
-              <circle
-                cx="80" cy="80" r={radius} fill="none"
-                stroke="url(#scoreGrad)" strokeWidth="10"
-                strokeLinecap="round"
-                strokeDasharray={circumference}
-                strokeDashoffset={offset}
-                style={{ transition: 'stroke-dashoffset 1s ease' }}
-              />
-              <defs>
-                <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#8b5cf6" />
-                  <stop offset="100%" stopColor="#3b82f6" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <div className="result-score-text">{pct}%</div>
+      <div className="max-w-2xl mx-auto w-full pb-xl">
+        {/* Result Header */}
+        <div className="bg-surface-container-lowest rounded-xl shadow-ambient p-xl border border-outline-variant/20 flex flex-col items-center mb-xl">
+          <div className="w-20 h-20 rounded-full bg-[#fff4e5] text-[#f59e0b] flex items-center justify-center mb-md shadow-[0_0_30px_rgba(245,158,11,0.2)]">
+             <span className="material-symbols-outlined text-[40px]">emoji_events</span>
           </div>
-
-          <p style={{ fontSize: '1rem', color: 'var(--text-secondary)' }}>
-            Đúng <strong style={{ color: 'var(--text-primary)' }}>{correctCount}</strong> / <strong style={{ color: 'var(--text-primary)' }}>{total}</strong> câu
+          <h2 className="font-h2 text-h2 text-primary mb-sm">Kết quả của bạn</h2>
+          <p className="font-body-lg text-body-lg text-on-surface-variant mb-lg text-center">
+            {pct >= 80 ? 'Xuất sắc! Bạn đã nắm vững kiến thức!' : pct >= 50 ? 'Tốt! Tiếp tục cố gắng nhé!' : 'Hãy ôn tập thêm nhé!'}
+          </p>
+          
+          <div className="w-32 h-32 rounded-full border-8 border-surface-container flex items-center justify-center relative mb-sm">
+            <svg className="absolute inset-0 w-full h-full -rotate-90">
+               <circle cx="60" cy="60" r="56" fill="transparent" stroke="currentColor" strokeWidth="8" className="text-secondary opacity-20" />
+               <circle cx="60" cy="60" r="56" fill="transparent" stroke="currentColor" strokeWidth="8" className="text-secondary" strokeDasharray="351.8" strokeDashoffset={351.8 - (351.8 * pct) / 100} style={{ transition: 'stroke-dashoffset 1s ease-in-out' }} />
+            </svg>
+            <span className="font-h2 text-h2 text-primary z-10">{pct}%</span>
+          </div>
+          <p className="font-body-md text-body-md text-on-surface-variant">
+            Đúng <strong className="text-primary text-lg">{correctCount}</strong> / <strong className="text-primary text-lg">{total}</strong> câu
           </p>
         </div>
 
@@ -300,6 +285,11 @@ export default function QuizPage() {
             const originalIndex = q._index ?? i;
             const userAns = answers[originalIndex];
             const resultItem = resultMap.get(q.id) || result.answers?.[originalIndex] || result.results?.[originalIndex];
+        <h3 className="font-h3 text-h3 text-primary mb-md">Xem lại đáp án</h3>
+        <div className="flex flex-col gap-md">
+          {questions.map((q, i) => {
+            const userAns = answers[i];
+            const resultItem = result.answers?.[i] || result.results?.[i];
             const isCorrect = resultItem?.is_correct ?? (userAns === q.correct_answer);
             const correctAns = resultItem?.correct_answer ?? q.correct_answer;
             const answerId = resultItem?.answer_id;
@@ -328,21 +318,26 @@ export default function QuizPage() {
                       </div>
                     )}
                   </div>
+              <div key={q.id || i} className={`bg-surface-container-lowest rounded-xl p-md border ${isCorrect ? 'border-[#16a34a]/30' : 'border-error/30'} shadow-[0_4px_12px_-4px_rgba(0,35,102,0.05)]`}>
+                <div className="flex items-start gap-sm mb-sm">
+                  {isCorrect ? (
+                    <span className="material-symbols-outlined text-[#16a34a] mt-[2px] shrink-0">check_circle</span>
+                  ) : (
+                    <span className="material-symbols-outlined text-error mt-[2px] shrink-0">cancel</span>
+                  )}
+                  <p className="font-body-md text-body-md text-on-background">{i + 1}. {q.question}</p>
                 </div>
-                <div style={{ paddingLeft: '1.75rem', fontSize: '0.9rem' }}>
-                  <p>
-                    <span style={{ color: 'var(--text-muted)' }}>Bạn chọn: </span>
-                    <span style={{ color: isCorrect ? 'var(--color-success)' : 'var(--color-danger)', fontWeight: 600 }}>
-                      {userAns || 'Không trả lời'}
-                    </span>
-                  </p>
+                
+                <div className="pl-[36px] flex flex-col gap-xs">
+                  <div className="flex items-center gap-xs text-sm">
+                    <span className="text-on-surface-variant">Bạn chọn:</span>
+                    <span className={`font-button ${isCorrect ? 'text-[#16a34a]' : 'text-error'}`}>{userAns || 'Không trả lời'}</span>
+                  </div>
                   {!isCorrect && (
-                    <p style={{ marginTop: '0.25rem' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>Đáp án đúng: </span>
-                      <span style={{ color: 'var(--color-success)', fontWeight: 600 }}>
-                        {correctAns}
-                      </span>
-                    </p>
+                    <div className="flex items-center gap-xs text-sm">
+                      <span className="text-on-surface-variant">Đáp án đúng:</span>
+                      <span className="font-button text-[#16a34a]">{correctAns}</span>
+                    </div>
                   )}
                   {!isCorrect && answerId && (
                     <ExplainBox answerId={answerId} token={token} />
@@ -353,12 +348,19 @@ export default function QuizPage() {
           })}
         </div>
 
-        <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
-          <button className="btn btn-ghost" onClick={() => navigate('/')}>
-            <ArrowLeft size={16} /> Dashboard
+        {/* Action Buttons */}
+        <div className="flex gap-sm mt-xl">
+          <button 
+            className="flex-1 bg-surface-container-lowest text-secondary font-button text-button py-sm rounded-full shadow-md border border-outline-variant/20 hover:bg-surface-container-low transition-colors flex items-center justify-center gap-xs"
+            onClick={() => navigate('/')}
+          >
+            <span className="material-symbols-outlined text-[18px]">arrow_back</span> Dashboard
           </button>
-          <button className="btn btn-primary" onClick={() => { setSubmitted(false); setCurrent(0); setAnswers({}); setResult(null); }}>
-            Làm lại
+          <button 
+            className="flex-1 bg-secondary text-on-secondary font-button text-button py-sm rounded-full shadow-md hover:-translate-y-0.5 transition-all flex items-center justify-center gap-xs"
+            onClick={() => { setSubmitted(false); setCurrent(0); setAnswers({}); setResult(null); }}
+          >
+            <span className="material-symbols-outlined text-[18px]">refresh</span> Làm lại
           </button>
         </div>
       </div>
@@ -411,13 +413,46 @@ export default function QuizPage() {
         <div className="quiz-progress-info">
           <span>Tiến độ</span>
           <span>{Math.round(progress)}%</span>
+  const optionEntries = q?.options ? Object.entries(q.options) : [];
+
+  return (
+    <div className="max-w-2xl mx-auto w-full h-[calc(100vh-12rem)] md:h-auto flex flex-col">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-lg shrink-0">
+        <div className="flex items-center gap-sm">
+          <button 
+            className="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors"
+            onClick={() => navigate('/')}
+          >
+            <span className="material-symbols-outlined">close</span>
+          </button>
+          <h2 className="font-h3 text-h3 text-primary truncate">Bài Quiz</h2>
         </div>
-        <div className="progress-bar">
-          <div className="progress-fill" style={{ width: `${progress}%` }} />
+        
+        <div className="flex items-center gap-sm">
+          <button 
+            className={`px-sm py-[6px] rounded-full font-label-caps text-label-caps flex items-center gap-1 transition-colors ${isShared ? 'bg-[#e6f4ea] text-[#16a34a]' : 'bg-surface-container border border-outline-variant/30 text-on-surface-variant hover:text-secondary'}`}
+            onClick={handleToggleShare}
+            disabled={sharing}
+          >
+            {sharing ? <span className="material-symbols-outlined animate-spin text-[14px]">sync</span> : <span className="material-symbols-outlined text-[14px]">{isShared ? 'public' : 'share'}</span>}
+            <span className="hidden sm:inline">{isShared ? 'Đã chia sẻ' : 'Chia sẻ'}</span>
+          </button>
+          <div className="bg-secondary-container/30 text-secondary font-label-caps text-label-caps px-sm py-[6px] rounded-full">
+            {current + 1} / {questions.length}
+          </div>
         </div>
       </div>
 
-      {error && <div className="alert alert-error" style={{ marginBottom: '1rem' }}>{error}</div>}
+      {/* Progress Bar */}
+      <div className="w-full h-2 bg-surface-container rounded-full overflow-hidden mb-xl shrink-0">
+        <div className="h-full bg-secondary transition-all duration-300" style={{ width: `${progress}%` }}></div>
+      </div>
+
+      {error && <div className="bg-error-container text-on-error-container p-sm rounded-xl mb-md border border-error/20 flex items-center gap-2 text-sm shrink-0">
+        <span className="material-symbols-outlined">error</span>
+        {error}
+      </div>}
 
       {/* Question Card */}
       <div className="quiz-question-card">
@@ -430,50 +465,59 @@ export default function QuizPage() {
             </span>
           </div>
         )}
+      {/* Question */}
+      <div className="flex-grow flex flex-col overflow-y-auto scrollbar-hide pb-md">
+        <h3 className="font-h3 text-h3 text-on-background mb-xl leading-relaxed">
+          {q?.question_text || q?.question}
+        </h3>
 
-        <div className="quiz-options">
-          {optionEntries.map(([letter, text]) => (
-            <button
-              key={letter}
-              className={`quiz-option${answers[current] === letter ? ' selected' : ''}`}
-              onClick={() => handleSelect(letter)}
-            >
-              <span className="quiz-option-letter">{letter}</span>
-              {text}
-            </button>
-          ))}
+        <div className="flex flex-col gap-sm mt-auto">
+          {optionEntries.map(([letter, text]) => {
+            const isSelected = answers[current] === letter;
+            return (
+              <button
+                key={letter}
+                className={`w-full text-left p-md rounded-xl border transition-all flex items-center gap-md ${isSelected ? 'bg-secondary-container border-secondary shadow-[0_0_15px_rgba(33,112,228,0.15)] text-on-secondary-container scale-[1.01]' : 'bg-surface-container-lowest border-outline-variant/30 hover:border-secondary/50 hover:bg-surface-container-low text-on-background'}`}
+                onClick={() => handleSelect(letter)}
+              >
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-button text-sm shrink-0 transition-colors ${isSelected ? 'bg-secondary text-on-secondary' : 'bg-surface-container text-on-surface-variant'}`}>
+                  {letter}
+                </div>
+                <span className="font-body-md text-body-md">{text}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Navigation */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      {/* Navigation Footer */}
+      <div className="flex justify-between items-center mt-md pt-md border-t border-outline-variant/20 shrink-0">
         <button
-          className="btn btn-ghost"
+          className={`flex items-center gap-xs px-md py-sm rounded-full font-button text-button transition-colors ${current === 0 ? 'text-outline-variant cursor-not-allowed' : 'text-on-surface-variant hover:bg-surface-container-low'}`}
           onClick={() => setCurrent((c) => Math.max(0, c - 1))}
           disabled={current === 0}
         >
-          <ArrowLeft size={16} /> Trước
+          <span className="material-symbols-outlined text-[18px]">arrow_back</span> Trước
         </button>
 
         {current < questions.length - 1 ? (
           <button
-            className="btn btn-primary"
+            className={`flex items-center gap-xs px-lg py-sm rounded-full font-button text-button transition-all shadow-md ${!answers[current] ? 'bg-surface-container text-outline-variant cursor-not-allowed' : 'bg-secondary text-on-secondary hover:-translate-y-0.5'}`}
             onClick={handleNext}
             disabled={!answers[current]}
           >
-            Tiếp <ChevronRight size={16} />
+            Tiếp <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
           </button>
         ) : (
           <button
-            className="btn btn-primary btn-lg"
+            className={`flex items-center gap-xs px-lg py-sm rounded-full font-button text-button transition-all shadow-md ${!answers[current] || submitting ? 'bg-surface-container text-outline-variant cursor-not-allowed' : 'bg-[#16a34a] text-white hover:-translate-y-0.5 shadow-[0_0_20px_rgba(22,163,74,0.3)] animate-pulse'}`}
             onClick={handleSubmit}
-            disabled={submitting}
-            style={{ animation: 'pulse-glow 2s infinite' }}
+            disabled={!answers[current] || submitting}
           >
             {submitting ? (
-              <><Loader2 size={16} className="animate-spin" /> Đang nộp...</>
+              <><span className="material-symbols-outlined animate-spin text-[18px]">sync</span> Đang nộp...</>
             ) : (
-              <><Trophy size={16} /> Nộp bài</>
+              <><span className="material-symbols-outlined text-[18px]">emoji_events</span> Nộp bài</>
             )}
           </button>
         )}
