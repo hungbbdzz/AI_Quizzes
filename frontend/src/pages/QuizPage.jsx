@@ -1,11 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
-  ArrowLeft, CheckCircle2, XCircle, ChevronRight, Loader2, Zap, Trophy, Share2, Globe
+  ArrowLeft, CheckCircle2, XCircle, ChevronRight, Loader2, Zap, Trophy, Share2, Globe, Brain
 } from 'lucide-react';
 import useStore, { API_BASE } from '../store';
 
 const ALPHABET = ['A', 'B', 'C', 'D'];
+const DIFFICULTY_LABELS = { easy: '😊 Dễ', medium: '🎯 Trung bình', hard: '🔥 Khó' };
+const DIFFICULTY_ORDER = { easy: 1, medium: 2, hard: 3 };
+const DIFFICULTY_BADGE_CLASS = {
+  easy: 'badge-success',
+  medium: 'badge-blue',
+  hard: 'badge-danger',
+};
+
+function getDifficultyInfo(label) {
+  if (!label) return null;
+  return {
+    text: DIFFICULTY_LABELS[label] || label,
+    className: DIFFICULTY_BADGE_CLASS[label] || 'badge-purple',
+  };
+}
 
 function ExplainBox({ answerId, token }) {
   const [loading, setLoading] = useState(false);
@@ -80,6 +95,17 @@ export default function QuizPage() {
   const [result, setResult] = useState(null); // { score, total, answers: [{answer_id, correct}] }
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [showDifficulty, setShowDifficulty] = useState(false);
+  const [showDifficultyReview, setShowDifficultyReview] = useState(false);
+
+  const resultMap = useMemo(() => {
+    const map = new Map();
+    const list = result?.answers || result?.results || [];
+    list.forEach((r) => {
+      if (r?.question_id) map.set(r.question_id, r);
+    });
+    return map;
+  }, [result]);
 
   useEffect(() => {
     if (isGuest) {
@@ -219,6 +245,7 @@ export default function QuizPage() {
     const radius = 68;
     const circumference = 2 * Math.PI * radius;
     const offset = circumference - (pct / 100) * circumference;
+    const reviewQuestions = questions.map((q, index) => ({ ...q, _index: index }));
 
     return (
       <div style={{ maxWidth: 700, margin: '0 auto' }} className="animate-fadeIn">
@@ -256,14 +283,31 @@ export default function QuizPage() {
         </div>
 
         {/* Review Section */}
-        <h3 style={{ marginBottom: '1rem' }}>Xem lại đáp án</h3>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <h3 style={{ margin: 0 }}>Xem lại đáp án</h3>
+          <button
+            className={`btn btn-sm ${showDifficultyReview ? 'btn-primary' : 'btn-ghost'}`}
+            onClick={() => setShowDifficultyReview((v) => !v)}
+            title={showDifficultyReview ? 'Ẩn nhãn độ khó' : 'Hiện nhãn độ khó'}
+            style={{ gap: '0.4rem' }}
+          >
+            <Brain size={14} />
+            {showDifficultyReview ? 'Ẩn độ khó' : 'Hiện độ khó'}
+          </button>
+        </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {questions.map((q, i) => {
-            const userAns = answers[i];
-            const resultItem = result.answers?.[i] || result.results?.[i];
+          {reviewQuestions.map((q, i) => {
+            const originalIndex = q._index ?? i;
+            const userAns = answers[originalIndex];
+            const resultItem = resultMap.get(q.id) || result.answers?.[originalIndex] || result.results?.[originalIndex];
             const isCorrect = resultItem?.is_correct ?? (userAns === q.correct_answer);
             const correctAns = resultItem?.correct_answer ?? q.correct_answer;
             const answerId = resultItem?.answer_id;
+            const diffLabel = q.difficulty_label || q.difficulty?.label;
+            const diffInfo = getDifficultyInfo(diffLabel);
+            const diffScore = typeof q.difficulty_score === 'number'
+              ? Math.round(q.difficulty_score * 100)
+              : null;
 
             return (
               <div key={q.id || i} className="glass-card">
@@ -272,9 +316,18 @@ export default function QuizPage() {
                     ? <CheckCircle2 size={20} color="var(--color-success)" style={{ flexShrink: 0, marginTop: 2 }} />
                     : <XCircle size={20} color="var(--color-danger)" style={{ flexShrink: 0, marginTop: 2 }} />
                   }
-                  <p style={{ color: 'var(--text-primary)', fontWeight: 500, lineHeight: 1.5 }}>
-                    {i + 1}. {q.question}
-                  </p>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ color: 'var(--text-primary)', fontWeight: 500, lineHeight: 1.5 }}>
+                      {originalIndex + 1}. {q.question_text || q.question}
+                    </p>
+                    {showDifficultyReview && diffInfo && (
+                      <div style={{ marginTop: '0.35rem' }}>
+                        <span className={`badge ${diffInfo.className}`} title={diffScore !== null ? `Confidence: ${diffScore}%` : undefined}>
+                          {diffInfo.text}{diffScore !== null ? ` (${diffScore}%)` : ''}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div style={{ paddingLeft: '1.75rem', fontSize: '0.9rem' }}>
                   <p>
@@ -319,6 +372,11 @@ export default function QuizPage() {
   const optionEntries = q?.options
     ? Object.entries(q.options)
     : [];
+  const diffLabel = q?.difficulty_label || q?.difficulty?.label;
+  const diffInfo = getDifficultyInfo(diffLabel);
+  const diffScore = typeof q?.difficulty_score === 'number'
+    ? Math.round(q.difficulty_score * 100)
+    : null;
 
   return (
     <div className="quiz-page animate-fadeIn">
@@ -327,6 +385,15 @@ export default function QuizPage() {
           <ArrowLeft size={16} />
         </button>
         <h2 style={{ flex: 1 }}>Bài Quiz</h2>
+        <button
+          className={`btn btn-sm ${showDifficulty ? 'btn-primary' : 'btn-ghost'}`}
+          onClick={() => setShowDifficulty((v) => !v)}
+          title={showDifficulty ? 'Ẩn nhãn độ khó' : 'Bật nhãn độ khó'}
+          style={{ gap: '0.4rem' }}
+        >
+          <Brain size={14} />
+          {showDifficulty ? 'Ẩn độ khó' : 'Độ khó'}
+        </button>
         <button 
           className={`btn btn-sm ${isShared ? 'btn-success' : 'btn-ghost'}`}
           onClick={handleToggleShare}
@@ -356,6 +423,13 @@ export default function QuizPage() {
       <div className="quiz-question-card">
         <div className="quiz-question-number">Câu hỏi {current + 1}</div>
         <div className="quiz-question-text">{q?.question_text || q?.question}</div>
+        {showDifficulty && diffInfo && (
+          <div style={{ marginTop: '0.5rem' }}>
+            <span className={`badge ${diffInfo.className}`} title={diffScore !== null ? `Confidence: ${diffScore}%` : undefined}>
+              {diffInfo.text}{diffScore !== null ? ` (${diffScore}%)` : ''}
+            </span>
+          </div>
+        )}
 
         <div className="quiz-options">
           {optionEntries.map(([letter, text]) => (

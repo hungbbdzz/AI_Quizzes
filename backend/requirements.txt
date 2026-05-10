@@ -1,6 +1,6 @@
 # fastapi core
 fastapi==0.111.0
-uvicorn[standard]==0.29.0
+uvicorn==0.29.0
 python-multipart==0.0.9
 
 # database & auth
@@ -14,12 +14,17 @@ pdfplumber==0.11.0
 python-docx==1.1.0
 
 # ai & langchain
-langchain
-langchain-google-genai
+langchain-core==0.2.43
+langchain-google-genai==1.0.10
 google-generativeai
-langchain-text-splitters
-langchain-ollama
+langchain-text-splitters==0.2.1
+langchain-ollama==0.1.1
 numpy
+
+# ml - difficulty model
+torch
+transformers
+sentencepiece
 
 # testing & dev
 pytest==8.2.0

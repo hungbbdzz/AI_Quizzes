@@ -17,7 +17,7 @@ from app.models.quiz import (
     UserAnswerResult,
     QuestionResponse,
 )
-from app.services import ai_service
+from app.services import ai_service, difficulty_service
 
 
 async def generate_quiz(admin: Client, body: QuizGenerateRequest, user_id: str) -> QuizSetResponse:
@@ -71,16 +71,23 @@ async def generate_quiz(admin: Client, body: QuizGenerateRequest, user_id: str) 
     quiz_set = quiz_result.data[0]
     quiz_set_id = quiz_set["id"]
 
+    # Gán độ khó cho từng câu hỏi bằng model DL
+    difficulty_results = await difficulty_service.predict_difficulty(
+        [q["question"] for q in questions_data]
+    )
+
     # Lưu questions (to_thread để không block)
-    question_records = [
-        {
+    question_records = []
+    for q, diff in zip(questions_data, difficulty_results):
+        question_records.append({
             "quiz_set_id": quiz_set_id,
             "question_text": q["question"],
             "options": q["options"],
             "correct_answer": q["correct_answer"],
-        }
-        for q in questions_data
-    ]
+            "difficulty_label": diff["label"],
+            "difficulty_score": diff["score"],
+            "difficulty_version": diff["version"],
+        })
     questions_result = await asyncio.to_thread(
         lambda: admin.table("questions").insert(question_records).execute()
     )

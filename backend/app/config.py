@@ -47,6 +47,11 @@ class Settings(BaseSettings):
     # Embedding dimension (Gemini text-embedding-004)
     EMBEDDING_DIM: int = 768
 
+    # Difficulty model (PhoBERT + BiLSTM)
+    DIFFICULTY_MODEL_PATH: str = "backend/app/ml/artifacts/model.pt"
+    DIFFICULTY_LABEL_MAP_PATH: str = "backend/app/ml/artifacts/label_map.json"
+    DIFFICULTY_VERSION: str = "phobert_lstm_v1"
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"

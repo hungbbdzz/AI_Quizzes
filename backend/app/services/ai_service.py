@@ -33,7 +33,7 @@ def _get_llm(temperature: float = 0.7, fallback_to_ollama: bool = True):
     
     def create_gemini():
         return ChatGoogleGenerativeAI(
-            model="gemini-1.5-flash",
+            model="gemini-flash-latest",
             google_api_key=settings.GEMINI_API_KEY,
             temperature=temperature,
         )
@@ -84,9 +84,9 @@ async def _invoke_llm_with_fallback(prompt, inputs, temperature=0.7, fallback_to
 
 
 def _get_embeddings() -> GoogleGenerativeAIEmbeddings:
-    """Trả về model embedding text-embedding-004 (768 dims)."""
+    """Trả về model embedding gemini-embedding-2 (768 dims)."""
     return GoogleGenerativeAIEmbeddings(
-        model="models/text-embedding-004",
+        model="models/gemini-embedding-2",
         google_api_key=settings.GEMINI_API_KEY,
     )
 
@@ -95,8 +95,23 @@ def _get_embeddings() -> GoogleGenerativeAIEmbeddings:
 # Helper: parse JSON từ Gemini (loại bỏ markdown fences nếu có)
 # ---------------------------------------------------------------------------
 
-def _parse_json_response(raw: str) -> list | dict:
+def _get_text_from_response(response) -> str:
+    """Trích xuất text từ response.content vì gemini-flash-latest có thể trả về list of dicts thay vì string."""
+    content = response.content
+    if isinstance(content, list):
+        text_parts = [item.get("text", "") for item in content if isinstance(item, dict) and "text" in item]
+        return "".join(text_parts)
+    return str(content)
+
+def _parse_json_response(raw: str | list) -> list | dict:
     """Parse JSON response từ Gemini, xử lý cả trường hợp có markdown code fence."""
+    if isinstance(raw, list):
+        # Fallback in case raw is passed directly as a list
+        text_parts = [item.get("text", "") for item in raw if isinstance(item, dict) and "text" in item]
+        raw = "".join(text_parts)
+    elif not isinstance(raw, str):
+        raw = str(raw)
+        
     raw = raw.strip()
     raw = re.sub(r"^```(?:json)?\s*", "", raw)
     raw = re.sub(r"\s*```$", "", raw)
@@ -111,7 +126,8 @@ async def create_embedding(text: str) -> list[float]:
     """Tạo vector embedding cho 1 đoạn text (chạy trong thread pool)."""
     try:
         model = _get_embeddings()
-        return await asyncio.to_thread(model.embed_query, text)
+        embedding = await asyncio.to_thread(model.embed_query, text)
+        return embedding[:768]
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -130,6 +146,8 @@ async def create_embeddings_batch(texts: list[str], batch_size: int = 50) -> lis
         for i in range(0, len(texts), batch_size):
             batch = texts[i:i + batch_size]
             embeddings = await asyncio.to_thread(model.embed_documents, batch)
+            # Truncate to 768 dimensions to match database schema
+            embeddings = [emb[:768] for emb in embeddings]
             all_embeddings.extend(embeddings)
         return all_embeddings
     except Exception as e:
@@ -156,7 +174,7 @@ Tài liệu:
     try:
         if len(raw_text) <= 30000:
             response = await _invoke_llm_with_fallback(SUMMARY_PROMPT, {"raw_text": raw_text}, temperature=0.3)
-            return response.content.strip()
+            return _get_text_from_response(response).strip()
 
         # Text dài: chunk và tóm tắt từng phần
         chunks = [raw_text[i:i+25000] for i in range(0, len(raw_text), 25000)]
@@ -164,7 +182,7 @@ Tài liệu:
 
         for chunk in chunks:
             resp = await _invoke_llm_with_fallback(SUMMARY_PROMPT, {"raw_text": chunk}, temperature=0.3)
-            partial_summaries.append(resp.content.strip())
+            partial_summaries.append(_get_text_from_response(resp).strip())
 
         combined = "\n\n---\n\n".join(partial_summaries)
         final_prompt = PromptTemplate(
@@ -174,7 +192,7 @@ Tài liệu:
 {raw_text}""",
         )
         response = await _invoke_llm_with_fallback(final_prompt, {"raw_text": combined}, temperature=0.3)
-        return response.content.strip()
+        return _get_text_from_response(response).strip()
 
     except Exception as e:
         raise HTTPException(
@@ -210,7 +228,7 @@ Tài liệu:
                 "difficulty": difficulty,
                 "raw_text": raw_text[:8000],
             }, temperature=0.5)
-            questions = _parse_json_response(response.content)
+            questions = _parse_json_response(_get_text_from_response(response))
 
             if not isinstance(questions, list):
                 raise ValueError("Response phải là JSON array")
@@ -261,7 +279,7 @@ Tài liệu:
                 "num_flashcards": num_flashcards,
                 "raw_text": raw_text[:8000],
             }, temperature=0.6)
-            cards = _parse_json_response(response.content)
+            cards = _parse_json_response(_get_text_from_response(response))
 
             if not isinstance(cards, list):
                 raise ValueError("Response phải là JSON array")
@@ -349,7 +367,7 @@ Hãy giải thích rõ ràng, dễ hiểu bằng tiếng Việt (hoặc ngôn ng
             "user_answer": user_answer,
             "relevant_chunks": chunks_text,
         }, temperature=0.4)
-        return response.content.strip()
+        return _get_text_from_response(response).strip()
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,

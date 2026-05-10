@@ -4,4 +4,5 @@ __all__ = [
     "flashcard_service",
     "ai_service",
     "auth_service",
+    "difficulty_service",
 ]

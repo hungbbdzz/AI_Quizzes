@@ -66,7 +66,10 @@ create table if not exists questions (
   quiz_set_id uuid references quiz_sets(id) on delete cascade,
   question_text text not null,
   options jsonb not null,  -- {"A": "...", "B": "...", "C": "...", "D": "..."}
-  correct_answer text not null  -- "A" | "B" | "C" | "D"
+  correct_answer text not null,  -- "A" | "B" | "C" | "D"
+  difficulty_label text,         -- "easy" | "medium" | "hard"
+  difficulty_score float,        -- model confidence
+  difficulty_version text        -- model version
 );
 
 -- ============================================================
@@ -132,3 +135,206 @@ as $$
   order by dc.embedding <=> query_embedding
   limit match_count;
 $$;
+-- =========
+-- mới
+-- Enable RLS on tables
+alter table users enable row level security;
+alter table documents enable row level security;
+alter table document_chunks enable row level security;
+alter table quiz_sets enable row level security;
+alter table questions enable row level security;
+alter table flashcards enable row level security;
+alter table submissions enable row level security;
+alter table user_answers enable row level security;
+
+-- Users: chỉ xem chính mình
+create policy "Users can view own profile"
+on users for select
+using (id = auth.uid());
+
+create policy "Users can update own profile"
+on users for update
+using (id = auth.uid());
+
+-- Documents
+create policy "Documents: owner can read"
+on documents for select
+using (user_id = auth.uid());
+
+create policy "Documents: owner can insert"
+on documents for insert
+with check (user_id = auth.uid());
+
+create policy "Documents: owner can update"
+on documents for update
+using (user_id = auth.uid());
+
+create policy "Documents: owner can delete"
+on documents for delete
+using (user_id = auth.uid());
+
+-- Document chunks: chỉ chủ tài liệu đọc
+create policy "Chunks: owner can read"
+on document_chunks for select
+using (
+  exists (
+    select 1 from documents d
+    where d.id = document_chunks.document_id
+      and d.user_id = auth.uid()
+  )
+);
+
+-- Quiz sets: chỉ chủ tài liệu
+create policy "Quiz sets: owner can read"
+on quiz_sets for select
+using (
+  exists (
+    select 1 from documents d
+    where d.id = quiz_sets.document_id
+      and d.user_id = auth.uid()
+  )
+);
+
+create policy "Quiz sets: owner can insert"
+on quiz_sets for insert
+with check (
+  exists (
+    select 1 from documents d
+    where d.id = quiz_sets.document_id
+      and d.user_id = auth.uid()
+  )
+);
+
+create policy "Quiz sets: owner can update"
+on quiz_sets for update
+using (
+  exists (
+    select 1 from documents d
+    where d.id = quiz_sets.document_id
+      and d.user_id = auth.uid()
+  )
+);
+
+create policy "Quiz sets: owner can delete"
+on quiz_sets for delete
+using (
+  exists (
+    select 1 from documents d
+    where d.id = quiz_sets.document_id
+      and d.user_id = auth.uid()
+  )
+);
+
+-- Questions: theo quiz_set -> document -> user
+create policy "Questions: owner can read"
+on questions for select
+using (
+  exists (
+    select 1
+    from quiz_sets qs
+    join documents d on d.id = qs.document_id
+    where qs.id = questions.quiz_set_id
+      and d.user_id = auth.uid()
+  )
+);
+
+create policy "Questions: owner can insert"
+on questions for insert
+with check (
+  exists (
+    select 1
+    from quiz_sets qs
+    join documents d on d.id = qs.document_id
+    where qs.id = questions.quiz_set_id
+      and d.user_id = auth.uid()
+  )
+);
+
+create policy "Questions: owner can delete"
+on questions for delete
+using (
+  exists (
+    select 1
+    from quiz_sets qs
+    join documents d on d.id = qs.document_id
+    where qs.id = questions.quiz_set_id
+      and d.user_id = auth.uid()
+  )
+);
+
+-- Flashcards: theo document
+create policy "Flashcards: owner can read"
+on flashcards for select
+using (
+  exists (
+    select 1 from documents d
+    where d.id = flashcards.document_id
+      and d.user_id = auth.uid()
+  )
+);
+
+create policy "Flashcards: owner can insert"
+on flashcards for insert
+with check (
+  exists (
+    select 1 from documents d
+    where d.id = flashcards.document_id
+      and d.user_id = auth.uid()
+  )
+);
+
+create policy "Flashcards: owner can delete"
+on flashcards for delete
+using (
+  exists (
+    select 1 from documents d
+    where d.id = flashcards.document_id
+      and d.user_id = auth.uid()
+  )
+);
+
+-- Submissions: chỉ user của submission
+create policy "Submissions: owner can read"
+on submissions for select
+using (user_id = auth.uid());
+
+create policy "Submissions: owner can insert"
+on submissions for insert
+with check (user_id = auth.uid());
+
+-- User answers: theo submission -> user
+create policy "User answers: owner can read"
+on user_answers for select
+using (
+  exists (
+    select 1 from submissions s
+    where s.id = user_answers.submission_id
+      and s.user_id = auth.uid()
+  )
+);
+
+create policy "User answers: owner can insert"
+on user_answers for insert
+with check (
+  exists (
+    select 1 from submissions s
+    where s.id = user_answers.submission_id
+      and s.user_id = auth.uid()
+  )
+);
+-- =====
+-- bucket 
+-- Only authenticated users can upload/read their own files
+create policy "Storage read own files"
+on storage.objects for select
+using (
+  bucket_id = 'documents'
+  and auth.uid()::text = (storage.foldername(name))[1]
+);
+
+create policy "Storage upload own files"
+on storage.objects for insert
+with check (
+  bucket_id = 'documents'
+  and auth.uid()::text = (storage.foldername(name))[1]
+);

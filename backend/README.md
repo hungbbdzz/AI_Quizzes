@@ -10,6 +10,7 @@ Website cho phép người dùng upload tài liệu học tập (PDF, DOCX, TXT)
 - **Authentication**: Supabase Auth
 - **Storage**: Supabase Storage
 - **AI Models**: Google Gemini (`gemini-1.5-pro` và `text-embedding-004`) qua LangChain
+- **ML Difficulty Classifier**: PhoBERT + BiLSTM (Local)
 - **File Processing**: `pdfplumber` (hỗ trợ tiếng Việt tốt), `python-docx`
 
 ## Cấu trúc thư mục lõi
@@ -98,3 +99,34 @@ Chức năng **Tại sao tôi sai? (Explain)** sử dụng hệ thống RAG:
 6. Lấy top 3 chunks gần nhất với ngữ cảnh để prompt lên `gemini-1.5-pro`
 7. Gemini sẽ phân tích chuyên sâu tại sao user trả lời sai dựa trên context gốc
 8. Phản hồi API và cache lại vào Database để tối ưu hiệu suất cho lần truy vấn sau
+
+## Hệ thống Phân loại Độ khó (Machine Learning)
+
+Hệ thống sử dụng mô hình **PhoBERT** kết hợp với **BiLSTM** để dự đoán độ khó của câu hỏi trắc nghiệm (Easy, Medium, Hard).
+
+### 1. Huấn luyện mô hình (Training)
+
+Nếu bạn có bộ dữ liệu mới, có thể huấn luyện lại mô hình:
+
+```bash
+# Di chuyển vào thư mục backend
+cd backend
+
+# Chạy script training
+python -m app.ml.train --data app/ml/data/triethoc_mln_new.csv --epochs 6 --batch-size 8
+```
+
+Các tham số chính:
+- `--data`: Đường dẫn file CSV (cần có cột `cau_hoi` và `do_kho`).
+- `--epochs`: Số lượt huấn luyện (khuyến nghị: 6-10).
+- `--lr`: Learning rate (mặc định: 2e-5).
+
+### 2. Cấu trúc mô hình
+
+Mô hình được định nghĩa tại `app/ml/model.py`:
+- **Encoder**: PhoBERT (VinAI) để trích xuất đặc trưng ngôn ngữ tiếng Việt.
+- **Classifier**: Bidirectional LSTM để hiểu ngữ cảnh câu hỏi, kết hợp với Dropout và Linear layer để phân loại.
+
+### 3. Sử dụng mô hình
+
+Mô hình sau khi train sẽ được lưu tại `app/ml/artifacts/model.pt`. Service `difficulty_service.py` sẽ tự động load mô hình này để dự đoán khi người dùng làm bài tập hoặc khi AI sinh câu hỏi mới.

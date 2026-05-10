@@ -41,6 +41,9 @@ class QuestionResponse(BaseModel):
     question_text: str
     options: Dict[str, str]   # {"A": "...", "B": "...", "C": "...", "D": "..."}
     correct_answer: Optional[str] = None  # chỉ trả về sau khi nộp bài
+    difficulty_label: Optional[Difficulty] = None
+    difficulty_score: Optional[float] = None
+    difficulty_version: Optional[str] = None
 
     class Config:
         from_attributes = True
